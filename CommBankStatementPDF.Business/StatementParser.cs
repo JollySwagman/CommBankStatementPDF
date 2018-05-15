@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -10,28 +12,40 @@ namespace CommBankStatementPDF.Business
         public int Year { get; private set; }
 
         public List<Transaction> Transactions { get; set; }
+        public string Source { get; private set; }
 
-        public string GetTransactions(string pdfText)
+
+
+        public void ReadFile(string filename)
+        {
+            var fi = new FileInfo(filename);
+
+            this.Year = Convert.ToInt32(fi.Name.Substring(9, 4));
+            
+
+            this.Source = IOHelper.ReadPdfFile(fi.FullName);
+
+            GetTransactions();
+
+        }
+
+        public string GetTransactions()
         {
             this.Transactions = new List<Transaction>();
+            //this.Year = GetYear(pdfText);
 
-            var lines = pdfText.Split('\n');
+            var lines = this.Source.Split('\n');
 
             var trans = new StringBuilder();
 
             //find transactions - "Date Transaction Details Amount (A$)"
             foreach (var item in lines)
             {
-                if (Transaction.IsCrap(item))
-                {
-                    var o = 0;
-                }
-
-                if (item.StartsWith("Statement Period "))
-                {
-                    var sYear = item.Substring(24, 4);
-                    Year = Convert.ToInt32(sYear);
-                }
+                //if (item.StartsWith("Statement Period "))
+                //{
+                //    var sYear = item.Substring(24, 4);
+                //    //Year = Convert.ToInt32(sYear);
+                //}
 
                 if (Transaction.IsTransaction(item))
                 {
@@ -49,52 +63,25 @@ namespace CommBankStatementPDF.Business
             return trans.ToString();
         }
 
-        ///// <summary>
-        ///// Line begins with a date
-        ///// </summary>
-        ///// <param name="line"></param>
-        ///// <returns></returns>
-        //public Transaction ParseTransaction(string line)
-        //{
-        //    Transaction result = null;
-
-        //    if (Transaction.IsTransaction(line))
+        //    public int GetYear(string pdfText)
         //    {
-        //        List<string> months = new List<string> { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+        //        var result = 0;
 
-        //        Regex r = new Regex(@"^\d{2} [A-z]{3}", RegexOptions.IgnoreCase);
-        //        Match m = r.Match(line.Substring(0, 6));
+        //        //Statement Period 24 Mar 2017
+        //        Regex r = new Regex(@"\d{2} [A-z]{3} \d{4}", RegexOptions.IgnoreCase);
+        //        Match m = r.Match(pdfText);
 
         //        if (m.Success)
         //        {
-        //            var month = m.Value.Substring(3);
-        //            var xxx = months.Contains(month);
+        //            var sYear = m.Value.Substring(m.Value.Length - 4);
+        //            result = Convert.ToInt32(sYear);
 
-        //            var biller = line.Substring(7, line.LastIndexOf(' ') - 7);
-
-        //            decimal amount = 0;
-        //            decimal number = 0;
-
-        //            var sAmount = line.Substring(line.LastIndexOf(' ') + 1);
-        //            if (decimal.TryParse(sAmount, out number))
-        //            {
-        //                amount = number;
-        //            }
-
-        //            int monthIndex = Convert.ToDateTime("01-" + month + "-2000").Month;
-
-        //            var dd = new DateTime(this.Year, 1, 1);
-
-        //            if (monthIndex > 6)
-        //            {
-        //            }
-
-        //            result = new Transaction { Amount = amount, Biller = biller, Date = dd };
+        //            Trace.WriteLine("YEAR=" + result);
         //        }
+
+        //        return result;
         //    }
-
-        //    return result;
-        //}
-
+        //
     }
+
 }

@@ -10,6 +10,7 @@ namespace CommBankStatementPDF.Business
         public DateTime Date { get; set; }
         public decimal Amount { get; set; }
         public string Biller { get; set; }
+        public string Source { get; private set; }
 
         public Transaction()
         {
@@ -17,6 +18,8 @@ namespace CommBankStatementPDF.Business
 
         public Transaction(string line, int year)
         {
+            this.Source = line;
+
             if (!IsCrap(line) && Transaction.IsTransaction(line))
             {
                 List<string> months = new List<string> { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
@@ -27,22 +30,29 @@ namespace CommBankStatementPDF.Business
                 if (m.Success)
                 {
                     var month = m.Value.Substring(3);
+                    var day = m.Value.Substring(0, 2);
+
                     var xxx = months.Contains(month);
 
-                    var biller = line.Substring(7, line.LastIndexOf(' ') - 7);
+                    var biller = "";
+                    if (line.Length > 20)
+                    {
+                        biller = line.Substring(7, line.LastIndexOf(' ') - 7);
+                    }
 
                     decimal amount = 0;
-                    decimal number = 0;
 
                     var sAmount = line.Substring(line.LastIndexOf(' ') + 1);
-                    if (decimal.TryParse(sAmount, out number))
+                    if (decimal.TryParse(sAmount, out decimal number))
                     {
                         amount = number;
                     }
 
+                    int dayIndex = Convert.ToInt32(day);
+
                     int monthIndex = Convert.ToDateTime("01-" + month + "-2000").Month;
 
-                    var dd = new DateTime(year, 1, 1);
+                    var dd = new DateTime(year, monthIndex, dayIndex);
 
                     if (monthIndex > 6)
                     {
@@ -106,6 +116,7 @@ namespace CommBankStatementPDF.Business
             result.AppendLine("Date: " + this.Date);
             result.AppendLine("Biller: " + this.Biller);
             result.AppendLine("Amount: " + this.Amount);
+            result.AppendLine("Source: " + this.Source);
 
             return result.ToString();
         }

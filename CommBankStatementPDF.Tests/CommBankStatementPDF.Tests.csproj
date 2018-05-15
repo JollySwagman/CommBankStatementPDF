@@ -52,6 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Statement20151218.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Test01.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
