@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace CommBankStatementPDF.Business
 {
@@ -9,17 +11,91 @@ namespace CommBankStatementPDF.Business
         public decimal Amount { get; set; }
         public string Biller { get; set; }
 
-
         public Transaction()
         {
-
         }
 
-        public Transaction(string line)
+        public Transaction(string line, int year)
         {
+            if (!IsCrap(line) && Transaction.IsTransaction(line))
+            {
+                List<string> months = new List<string> { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 
+                Regex r = new Regex(@"^\d{2} [A-z]{3}", RegexOptions.IgnoreCase);
+                Match m = r.Match(line.Substring(0, 6));
 
+                if (m.Success)
+                {
+                    var month = m.Value.Substring(3);
+                    var xxx = months.Contains(month);
 
+                    var biller = line.Substring(7, line.LastIndexOf(' ') - 7);
+
+                    decimal amount = 0;
+                    decimal number = 0;
+
+                    var sAmount = line.Substring(line.LastIndexOf(' ') + 1);
+                    if (decimal.TryParse(sAmount, out number))
+                    {
+                        amount = number;
+                    }
+
+                    int monthIndex = Convert.ToDateTime("01-" + month + "-2000").Month;
+
+                    var dd = new DateTime(year, 1, 1);
+
+                    if (monthIndex > 6)
+                    {
+                    }
+
+                    this.Amount = amount;
+                    this.Biller = biller;
+                    this.Date = dd;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Line begins with a date
+        /// </summary>
+        /// <param name="line"></param>
+        /// <returns></returns>
+        public static bool IsTransaction(string line)
+        {
+            var result = false;
+
+            if (!IsCrap(line) && !string.IsNullOrWhiteSpace(line) && line.Length > 6)
+            {
+                List<string> months = new List<string> { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+
+                Regex r = new Regex(@"^\d{2} [A-z]{3}", RegexOptions.IgnoreCase);
+                Match m = r.Match(line.Substring(0, 6));
+
+                result = m.Success;
+
+                if (m.Success)
+                {
+                    //var newTran = new Transaction(line, 2001);
+                    var month = m.Value.Substring(3);
+                    result = months.Contains(month);
+                }
+            }
+
+            return result;
+        }
+
+        public static bool IsCrap(string line)
+        {
+            //e.g.  25 Apr 2017 - 24 May 2017
+
+            var result = false;
+            if (!string.IsNullOrWhiteSpace(line) && line.Length > 20)
+            {
+                Regex r = new Regex(@"\d{2} [A-z]{3} \d{4}", RegexOptions.IgnoreCase);
+                Match m = r.Match(line);
+                result = m.Success;
+            }
+            return result;
         }
 
         public override string ToString()

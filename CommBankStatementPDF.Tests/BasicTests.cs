@@ -14,15 +14,15 @@ namespace CommBankStatementPDF.Tests
         [Test]
         public void IsTransaction_Identifies_Line_Begins_With()
         {
-            Assert.That(StatementParser.IsTransaction("53 NORTHWARD ST"), Is.False);
-            Assert.That(StatementParser.IsTransaction("01 Jan xxxxx"), Is.True);
-            Assert.That(StatementParser.IsTransaction("Hello world! 01 Jan"), Is.False);
-            Assert.That(StatementParser.IsTransaction("HELLO!"), Is.False);
+            var x = new Transaction("25 Apr 2017 - 24 May 2017", 2001);
 
-            Assert.That(StatementParser.IsTransaction("Statement Period 24 Mar 2017 - 24 Apr 2017"), Is.False);
-            Assert.That(StatementParser.IsTransaction("25 Apr 2017 - 24 May 2017"), Is.False);
-            Assert.That(StatementParser.IsTransaction("24 Mar 2017- 24 Apr 2017"), Is.False);
-
+            Assert.That(Transaction.IsTransaction("25 Apr 2017 - 24 May 2017"), Is.False);
+            Assert.That(Transaction.IsTransaction("53 NORTHWARD ST"), Is.False);
+            Assert.That(Transaction.IsTransaction("01 Jan xxxxx"), Is.True);
+            Assert.That(Transaction.IsTransaction("Hello world! 01 Jan"), Is.False);
+            Assert.That(Transaction.IsTransaction("HELLO!"), Is.False);
+            Assert.That(Transaction.IsTransaction("Statement Period 24 Mar 2017 - 24 Apr 2017"), Is.False);
+            Assert.That(Transaction.IsTransaction("24 Mar 2017- 24 Apr 2017"), Is.False);
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace CommBankStatementPDF.Tests
 
             var trans = "07 Apr Bunnings 370000 Alexandria 160.00";
 
-            var result = parser.ParseTransaction(trans);
+            var result = new Transaction(trans, 2001);
 
             Assert.That(result, Is.Not.Null);
 
@@ -58,16 +58,14 @@ namespace CommBankStatementPDF.Tests
             }
         }
 
-
-
         [Test]
         public void IsCrap()
         {
-            Assert.That(StatementParser.IsCrap("Statement Period 24 Mar 2017 - 24 Apr 2017"), Is.True);
-            Assert.That(StatementParser.IsCrap("25 Apr 2017 - 24 May 2017"), Is.True);
-            Assert.That(StatementParser.IsCrap("24 Mar 2017- 24 Apr 2017"), Is.True);
-
+            
+            Assert.That(Transaction.IsCrap("25 Apr 2017 - 24 May 2017"), Is.True);
+            Assert.That(Transaction.IsCrap("Statement Period 24 Mar 2017 - 24 Apr 2017"), Is.True);
+            Assert.That(Transaction.IsCrap("25 Apr 2017 - 24 May 2017"), Is.True);
+            Assert.That(Transaction.IsCrap("24 Mar 2017- 24 Apr 2017"), Is.True);
         }
-
     }
 }
