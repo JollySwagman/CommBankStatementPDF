@@ -15,10 +15,14 @@ namespace CommBankStatementPDF.Tests
         public void IsTransaction_Identifies_Line_Begins_With()
         {
             Assert.That(StatementParser.IsTransaction("53 NORTHWARD ST"), Is.False);
-
-            Assert.That(StatementParser.IsTransaction("01 Jan"), Is.True);
+            Assert.That(StatementParser.IsTransaction("01 Jan xxxxx"), Is.True);
             Assert.That(StatementParser.IsTransaction("Hello world! 01 Jan"), Is.False);
             Assert.That(StatementParser.IsTransaction("HELLO!"), Is.False);
+
+            Assert.That(StatementParser.IsTransaction("Statement Period 24 Mar 2017 - 24 Apr 2017"), Is.False);
+            Assert.That(StatementParser.IsTransaction("25 Apr 2017 - 24 May 2017"), Is.False);
+            Assert.That(StatementParser.IsTransaction("24 Mar 2017- 24 Apr 2017"), Is.False);
+
         }
 
         [Test]
@@ -46,7 +50,24 @@ namespace CommBankStatementPDF.Tests
 
             Assert.That(result, Is.Not.Null);
 
-            Trace.WriteLine(result);
+            Trace.WriteLine(contents);
+            Trace.WriteLine("*****************************************************");
+            foreach (var item in parser.Transactions)
+            {
+                Trace.WriteLine(item);
+            }
         }
+
+
+
+        [Test]
+        public void IsCrap()
+        {
+            Assert.That(StatementParser.IsCrap("Statement Period 24 Mar 2017 - 24 Apr 2017"), Is.True);
+            Assert.That(StatementParser.IsCrap("25 Apr 2017 - 24 May 2017"), Is.True);
+            Assert.That(StatementParser.IsCrap("24 Mar 2017- 24 Apr 2017"), Is.True);
+
+        }
+
     }
 }

@@ -22,6 +22,11 @@ namespace CommBankStatementPDF.Business
             //find transactions - "Date Transaction Details Amount (A$)"
             foreach (var item in lines)
             {
+                if (IsCrap(item))
+                {
+                    var o = 0;
+                }
+
                 if (item.StartsWith("Statement Period "))
                 {
                     var sYear = item.Substring(24, 4);
@@ -64,6 +69,7 @@ namespace CommBankStatementPDF.Business
 
                 if (m.Success)
                 {
+                    var newTran = new Transaction()
                     var month = m.Value.Substring(3);
                     result = months.Contains(month);
                 }
@@ -99,7 +105,7 @@ namespace CommBankStatementPDF.Business
                     decimal number = 0;
 
                     var sAmount = line.Substring(line.LastIndexOf(' ') + 1);
-                    if (decimal.TryParse(sAmount,out number))
+                    if (decimal.TryParse(sAmount, out number))
                     {
                         amount = number;
                     }
@@ -116,6 +122,20 @@ namespace CommBankStatementPDF.Business
                 }
             }
 
+            return result;
+        }
+
+        public static bool IsCrap(string line)
+        {
+            //e.g.  25 Apr 2017 - 24 May 2017
+
+            var result = false;
+            if (!string.IsNullOrWhiteSpace(line) && line.Length > 20)
+            {
+                Regex r = new Regex(@"\d{2} [A-z]{3} \d{4}", RegexOptions.IgnoreCase);
+                Match m = r.Match(line);
+                result = m.Success;
+            }
             return result;
         }
     }

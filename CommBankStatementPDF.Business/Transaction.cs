@@ -9,6 +9,19 @@ namespace CommBankStatementPDF.Business
         public decimal Amount { get; set; }
         public string Biller { get; set; }
 
+
+        public Transaction()
+        {
+
+        }
+
+        public Transaction(string line)
+        {
+
+
+
+        }
+
         public override string ToString()
         {
             var result = new StringBuilder();
