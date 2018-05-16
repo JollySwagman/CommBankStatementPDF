@@ -34,7 +34,7 @@ namespace CommBankStatementPDF.Business
 
             foreach (var item in lines)
             {
-                if (Transaction.IsTransaction(item))
+                if (true)//(Transaction.IsTransaction(item))
                 {
                     var newTrans = new Transaction(item, Year);
                     if (newTrans.ParseSuccess)

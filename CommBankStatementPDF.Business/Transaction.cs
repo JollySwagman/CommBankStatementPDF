@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -21,96 +22,107 @@ namespace CommBankStatementPDF.Business
         {
             this.Source = line;
 
-            if (!IsCrap(line) && Transaction.IsTransaction(line))
+            Trace.Write("PARSING: " + line);
+
+            if (line.Length > 10) //(!IsCrap(line) && Transaction.IsTransaction(line))
             {
                 List<string> months = new List<string> { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 
-                Regex r = new Regex(@"^\d{2} [A-z]{3}", RegexOptions.IgnoreCase);
+                Regex r = new Regex(@"^\d{1,2} [A-z]{3}", RegexOptions.IgnoreCase);
                 Match m = r.Match(line.Substring(0, 6));
 
                 if (m.Success)
                 {
-                    var month = m.Value.Substring(3);
+                    var month = m.Value.Split(' ')[1];     // had a gutful of regex now
+                    //var month = m.Value.Substring(3);
                     var day = m.Value.Substring(0, 2);
 
-                    var xxx = months.Contains(month);
-
-                    var biller = "";
-                    if (line.Length > 20)
+                    if (months.Contains(month))
                     {
-                        biller = line.Substring(7, line.LastIndexOf(' ') - 7);
+                        var biller = "";
+                        if (line.Length > 20)
+                        {
+                            biller = line.Substring(7, line.LastIndexOf(' ') - 7);
+                        }
+
+                        decimal amount = 0;
+
+                        var sAmount = line.Substring(line.LastIndexOf(' ') + 1);
+                        if (decimal.TryParse(sAmount, out decimal number))
+                        {
+                            amount = number;
+                        }
+
+                        int dayIndex = Convert.ToInt32(day);
+
+                        DateTime monthIndex;// Convert.ToDateTime("01-" + month + "-2000").Month;
+
+                        if (DateTime.TryParse("01-" + month + "-2000", out monthIndex))
+                        {
+                            var dd = new DateTime(year, monthIndex.Month, dayIndex);
+
+                            this.Amount = amount;
+                            this.Biller = biller;
+                            this.Date = dd;
+
+                            this.ParseSuccess = !string.IsNullOrWhiteSpace(biller);
+
+                            Trace.WriteLine(" SUCCESS: " + this.ParseSuccess);
+                        }
+
                     }
-
-                    decimal amount = 0;
-
-                    var sAmount = line.Substring(line.LastIndexOf(' ') + 1);
-                    if (decimal.TryParse(sAmount, out decimal number))
-                    {
-                        amount = number;
-                    }
-
-                    int dayIndex = Convert.ToInt32(day);
-
-                    int monthIndex = Convert.ToDateTime("01-" + month + "-2000").Month;
-
-                    var dd = new DateTime(year, monthIndex, dayIndex);
-
-                    if (monthIndex > 6)
-                    {
-                    }
-
-                    this.Amount = amount;
-                    this.Biller = biller;
-                    this.Date = dd;
-
-                    this.ParseSuccess = !string.IsNullOrWhiteSpace(biller);
-
                 }
             }
         }
 
-        /// <summary>
-        /// Line begins with a date
-        /// </summary>
-        /// <param name="line"></param>
-        /// <returns></returns>
-        public static bool IsTransaction(string line)
-        {
-            var result = false;
+        ///// <summary>
+        ///// Line begins with a date
+        ///// </summary>
+        ///// <param name="line"></param>
+        ///// <returns></returns>
+        ///// <remarks>Looking for lines with "07 Jan " or "7 Jan" with valid month names</remarks>
+        //public static bool IsTransaction(string line)
+        //{
+        //    var result = false;
 
-            if (!IsCrap(line) && !string.IsNullOrWhiteSpace(line) && line.Length > 6)
-            {
-                List<string> months = new List<string> { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+        //    if (!IsCrap(line) && !string.IsNullOrWhiteSpace(line) && line.Length > 6)
+        //    {
+        //        List<string> months = new List<string> { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 
-                Regex r = new Regex(@"^\d{2} [A-z]{3}", RegexOptions.IgnoreCase);
-                Match m = r.Match(line.Substring(0, 6));
+        //        var pattern = @"^\d{2} [A-z]{3} ";
+        //        pattern = @"^\d{1,2} [A-z]{3} ";
 
-                result = m.Success;
+        //        Regex r = new Regex(pattern, RegexOptions.IgnoreCase);
+        //        Match m = r.Match(line.Substring(0, 6));
 
-                if (m.Success)
-                {
-                    //var newTran = new Transaction(line, 2001);
-                    var month = m.Value.Substring(3);
-                    result = months.Contains(month);
-                }
-            }
+        //        result = m.Success;
 
-            return result;
-        }
+        //        if (m.Success)
+        //        {
+        //            var mm = m.Value.Split(' ')[1];     // had a gutful of regex now
+        //            result = months.Contains(mm);
+        //        }
+        //    }
 
-        public static bool IsCrap(string line)
-        {
-            //e.g.  25 Apr 2017 - 24 May 2017
+        //    return result;
+        //}
 
-            var result = false;
-            if (!string.IsNullOrWhiteSpace(line) && line.Length > 20)
-            {
-                Regex r = new Regex(@"\d{2} [A-z]{3} \d{4}", RegexOptions.IgnoreCase);
-                Match m = r.Match(line);
-                result = m.Success;
-            }
-            return result;
-        }
+        //public static bool IsCrap(string line)
+        //{
+        //    //e.g.  25 Apr 2017 - 24 May 2017
+
+        //    var result = false;
+        //    //if (!string.IsNullOrWhiteSpace(line) && line.Length > 20)
+        //    //{
+        //    //    Regex r = new Regex(@"\d{1,2} [A-z]{3} \d{4}", RegexOptions.IgnoreCase);
+        //    //    Match m = r.Match(line);
+        //    //    result = m.Success;
+        //    //}
+
+        //    //Trace.WriteLine(string.Format("IsCrap {0} ({1})", result, line));
+
+        //    return result;
+        //}
 
         public override string ToString()
         {
