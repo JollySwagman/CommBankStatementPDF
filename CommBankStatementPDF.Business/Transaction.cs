@@ -11,6 +11,7 @@ namespace CommBankStatementPDF.Business
         public decimal Amount { get; set; }
         public string Biller { get; set; }
         public string Source { get; private set; }
+        public bool ParseSuccess { get; private set; }
 
         public Transaction()
         {
@@ -61,6 +62,9 @@ namespace CommBankStatementPDF.Business
                     this.Amount = amount;
                     this.Biller = biller;
                     this.Date = dd;
+
+                    this.ParseSuccess = !string.IsNullOrWhiteSpace(biller);
+
                 }
             }
         }
