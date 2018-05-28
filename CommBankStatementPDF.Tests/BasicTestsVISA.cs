@@ -9,14 +9,13 @@ using System.IO;
 namespace CommBankStatementPDF.Tests
 {
     [TestFixture]
-    public class BasicTests
+    public class BasicTestsVISA
     {
-        private string testFilename = Path.Combine(TestContext.CurrentContext.TestDirectory, "Test01.pdf");
-        private string testFilename2 = Path.Combine(TestContext.CurrentContext.TestDirectory, "Statement20151218.pdf");
-        private string testFilenameOldFormat = Path.Combine(TestContext.CurrentContext.TestDirectory, "Statement20110121.pdf");
+        private string testFilename2 = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\VISA\Statement20151218.pdf");
+        private string testFilenameOldFormat = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\VISA\Statement20110121.pdf");
 
         [Test]
-        public void Read_All_PDF_Files()
+        public void Read_All_VISA_PDF_Files()
         {
             var parser = new StatementParser();
 
@@ -25,13 +24,30 @@ namespace CommBankStatementPDF.Tests
                 var file = new FileInfo(item);
                 var expectedYear = Convert.ToInt32(file.Name.Substring(9, 4));
 
-                //var pdfText = IOHelper.ReadPdfFile(item);
-                //var yyy = parser.GetYear(pdfText);
-                //pdfText = parser.GetTransactions(pdfText);
+                parser.ReadFile(file.FullName);
+
+                Trace.WriteLine(string.Format("************{0} {1}", file.Name, parser.Year));
+                foreach (var tran in parser.Transactions)
+                {
+                    Trace.WriteLine(tran);
+                }
+
+                Assert.That(parser.Year, Is.EqualTo(expectedYear));
+            }
+        }
+
+        [Test]
+        public void Read_All_Streamline_PDF_Files()
+        {
+            var parser = new StatementParser();
+
+            foreach (var item in Directory.GetFiles(@"C:\Users\Boss\Google Drive\Tax\Streamline", "*.pdf"))
+            {
+                var file = new FileInfo(item);
+                var expectedYear = Convert.ToInt32(file.Name.Substring(9, 4));
 
                 parser.ReadFile(file.FullName);
 
-                //Trace.WriteLine(result);
                 Trace.WriteLine(string.Format("************{0} {1}", file.Name, parser.Year));
                 foreach (var tran in parser.Transactions)
                 {
@@ -83,47 +99,12 @@ namespace CommBankStatementPDF.Tests
 
             Assert.That(parser.Transactions, Is.Not.Null);
             Assert.That(parser.Transactions.Count, Is.EqualTo(4));
-            
+
             foreach (var item in parser.Transactions)
             {
                 Assert.That(item.Date.Year > 1900);
                 Trace.WriteLine(item);
             }
         }
-
-        //[Test]
-        //public void IsTransaction_Identifies_Line_Begins_With()
-        //{
-        //    var x = new Transaction("25 Apr 2017 - 24 May 2017", 2001);
-
-        //    Assert.That(Transaction.IsTransaction("7 Jan 749405207P98NU9TR Skip Bins Online Pty Constitution AU 392.40"), Is.True);
-
-        //    Assert.That(Transaction.IsTransaction("25 Apr 2017 - 24 May 2017"), Is.False);
-        //    Assert.That(Transaction.IsTransaction("53 NORTHWARD ST"), Is.False);
-        //    Assert.That(Transaction.IsTransaction("01 Jan xxxxx"), Is.True);
-        //    Assert.That(Transaction.IsTransaction("Hello world! 01 Jan"), Is.False);
-        //    Assert.That(Transaction.IsTransaction("HELLO!"), Is.False);
-        //    Assert.That(Transaction.IsTransaction("Statement Period 24 Mar 2017 - 24 Apr 2017"), Is.False);
-        //    Assert.That(Transaction.IsTransaction("24 Mar 2017- 24 Apr 2017"), Is.False);
-        //}
-
-        //[Test]
-        //public void IOHelper_Reads_File()
-        //{
-        //    var parser = new StatementParser();
-        //    parser.ReadFile(testFilename);
-        //   var result = parser.GetTransactions();
-
-        //    Trace.WriteLine(result);
-        //}
-
-        //[Test]
-        //public void IsCrap()
-        //{
-        //    Assert.That(Transaction.IsCrap("25 Apr 2017 - 24 May 2017"), Is.True);
-        //    Assert.That(Transaction.IsCrap("Statement Period 24 Mar 2017 - 24 Apr 2017"), Is.True);
-        //    Assert.That(Transaction.IsCrap("25 Apr 2017 - 24 May 2017"), Is.True);
-        //    Assert.That(Transaction.IsCrap("24 Mar 2017- 24 Apr 2017"), Is.True);
-        //}
     }
 }
