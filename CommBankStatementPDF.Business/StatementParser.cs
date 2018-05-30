@@ -12,6 +12,10 @@ namespace CommBankStatementPDF.Business
         public List<Transaction> Transactions { get; set; }
         public string Source { get; private set; }
 
+        /// <summary>
+        /// Read CBA PDF file and load Transactions
+        /// </summary>
+        /// <param name="filename"></param>
         public void ReadFile(string filename)
         {
             var fi = new FileInfo(filename);
@@ -23,7 +27,12 @@ namespace CommBankStatementPDF.Business
             GetTransactions();
         }
 
-        //find transactions - "Date Transaction Details Amount (A$)"
+        /// <summary>
+        /// Extract tranactions from lines of text
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks> find transactions - "Date Transaction Details Amount (A$)"</remarks>
+
         public string GetTransactions()
         {
             this.Transactions = new List<Transaction>();
@@ -32,21 +41,18 @@ namespace CommBankStatementPDF.Business
 
             var trans = new StringBuilder();
 
+            bool foundTransLine = false;
+
             foreach (var item in lines)
             {
-                if (true)//(Transaction.IsTransaction(item))
+                var newTrans = new Transaction(item, Year);
+                if (newTrans.ParseSuccess)
                 {
-                    var newTrans = new Transaction(item, Year);
-                    if (newTrans.ParseSuccess)
-                    {
-                        this.Transactions.Add(newTrans);
-                    }
-                    trans.AppendLine(item);
+                    foundTransLine = true;
+
+                    this.Transactions.Add(newTrans);
                 }
-                else
-                {
-                    var o = 0;
-                }
+                trans.AppendLine(item);
             }
 
             return trans.ToString();

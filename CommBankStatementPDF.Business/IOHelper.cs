@@ -1,7 +1,6 @@
 ﻿using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.parser;
 using System;
-using System.Diagnostics;
 using System.Text;
 
 namespace CommBankStatementPDF.Business
@@ -10,8 +9,6 @@ namespace CommBankStatementPDF.Business
     {
         public static string ReadPdfFile(string fileName)
         {
-            Trace.WriteLine("READING " + fileName);
-
             StringBuilder text = new StringBuilder();
 
             PdfReader pdfReader = new PdfReader(fileName);

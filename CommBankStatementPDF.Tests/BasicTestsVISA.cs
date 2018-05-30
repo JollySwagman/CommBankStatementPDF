@@ -26,10 +26,14 @@ namespace CommBankStatementPDF.Tests
 
                 parser.ReadFile(file.FullName);
 
-                Trace.WriteLine(string.Format("************{0} {1}", file.Name, parser.Year));
+                //Trace.WriteLine(string.Format("************{0} {1}", file.Name, parser.Year));
                 foreach (var tran in parser.Transactions)
                 {
-                    Trace.WriteLine(tran);
+
+                    
+
+                    //Trace.WriteLine(tran);
+                    Trace.WriteLine(string.Format("{0}\t{1}\t{2}", tran.Date,tran.Amount,tran.Biller));
                 }
 
                 Assert.That(parser.Year, Is.EqualTo(expectedYear));
@@ -77,9 +81,13 @@ namespace CommBankStatementPDF.Tests
             parser.ReadFile(testFilename2);
 
             var trans = "07 Apr Bunnings 370000 Alexandria 160.00";
+
+            trans = "14 Feb Bunnings 370000 AlexandriaAU 157.25";
+
             var result = new Transaction(trans, 2001);
 
             Assert.That(result, Is.Not.Null);
+            Assert.That(result.Amount, Is.GreaterThan(0));
 
             Trace.WriteLine("*****************************************************");
             foreach (var item in parser.Transactions)

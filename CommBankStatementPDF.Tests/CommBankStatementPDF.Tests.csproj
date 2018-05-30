@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicTestsStreamline.cs" />
+    <Compile Include="BasicTestsTransaction.cs" />
     <Compile Include="BasicTestsVISA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
