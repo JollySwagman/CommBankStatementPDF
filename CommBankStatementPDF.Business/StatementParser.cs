@@ -37,25 +37,61 @@ namespace CommBankStatementPDF.Business
         {
             this.Transactions = new List<Transaction>();
 
-            var lines = this.Source.Split('\n');
+            //var lines = this.Source.Split('\n');
+            var lines = new List<string>(this.Source.Split('\n'));
 
             var trans = new StringBuilder();
 
-            bool foundTransLine = false;
+            //bool foundTransLine = false;
 
-            foreach (var item in lines)
+            for (int i = 0; i < lines.Count - 1; i++)
             {
-                var newTrans = new Transaction(item, Year);
+                Transaction newTrans = null;
+
+                if (i < lines.Count - 2)
+                {
+                    newTrans = new Transaction(new List<string>() { lines[i], lines[i + 1], lines[i + 2] }, Year);
+                }
+                else
+                {
+                    newTrans = new Transaction(lines[i], Year);
+                }
+
                 if (newTrans.ParseSuccess)
                 {
-                    foundTransLine = true;
+                    //foundTransLine = true;
 
                     this.Transactions.Add(newTrans);
                 }
-                trans.AppendLine(item);
+                trans.AppendLine(lines[i]);
             }
 
             return trans.ToString();
         }
+
+        //public string GetTransactionsOLD()
+        //{
+        //    this.Transactions = new List<Transaction>();
+
+        //    var lines = this.Source.Split('\n');
+
+        //    var trans = new StringBuilder();
+
+        //    bool foundTransLine = false;
+
+        //    foreach (var item in lines)
+        //    {
+        //        var newTrans = new Transaction(item, Year);
+        //        if (newTrans.ParseSuccess)
+        //        {
+        //            foundTransLine = true;
+
+        //            this.Transactions.Add(newTrans);
+        //        }
+        //        trans.AppendLine(item);
+        //    }
+
+        //    return trans.ToString();
+        //}
     }
 }

@@ -9,7 +9,7 @@ namespace CommBankStatementPDF.Business
     public class Transaction
     {
         public DateTime Date { get; set; }
-        public decimal? Amount { get; set; }
+        public decimal Amount { get; set; }
         public string Biller { get; set; }
         public string Source { get; private set; }
         public bool ParseSuccess { get; private set; }
@@ -20,8 +20,14 @@ namespace CommBankStatementPDF.Business
         {
         }
 
-        public Transaction(string line, int year)
+        public Transaction(string line, int year) : this(new List<string>() { line }, year)
         {
+        }
+
+        public Transaction(IList<string> lines, int year)
+        {
+            var line = lines[0];
+
             this.Source = line;
 
             if (line.Length > 10)
@@ -40,7 +46,8 @@ namespace CommBankStatementPDF.Business
                     {
                         this.Date = lineDate.Value;
 
-                        if (lineDate.Value.Equals(new DateTime(2016, 2, 14)))
+                        //30/03/2015
+                        if (lineDate.Value.Equals(new DateTime(2015, 3, 30)))
                         {
                             var o = 0;
                         }
@@ -50,14 +57,32 @@ namespace CommBankStatementPDF.Business
                             this.Biller = line.Substring(7, line.LastIndexOf(' ') - 7);
                         }
 
+                        var multiLine = lines[1].StartsWith("##");
+
                         var amount = GetAmountFromLine(line);
-                        if (amount.HasValue)
+                        if (!multiLine)
                         {
                             this.Amount = amount.Value;
                         }
                         else
                         {
-                            Trace.WriteLine("MISSING AMOUNT! " + line);
+                            Trace.WriteLine("       " + lines[0]);
+                            Trace.WriteLine("       " + lines[1]);
+                            Trace.WriteLine("       " + lines[2]);
+                            if (lines[1].StartsWith("##"))
+                            {
+                                var line2 = TrimEndAlpha(lines[2]);
+
+                                if (decimal.TryParse(line2, out decimal x))
+                                {
+
+                                    this.Amount = decimal.Parse(line2);
+                                }
+                                else
+                                {
+                                    this.Amount = amount.Value;
+                                }
+                            }
                         }
 
                         this.ParseSuccess = !string.IsNullOrWhiteSpace(this.Biller);
@@ -70,7 +95,7 @@ namespace CommBankStatementPDF.Business
         {
             decimal? result = null;
 
-            TrimEndAlpha(line);
+            line = TrimEndAlpha(line);
 
             if (decimal.TryParse(line.Substring(line.LastIndexOf(' ') + 1), out decimal number))
             {
@@ -103,14 +128,15 @@ namespace CommBankStatementPDF.Business
             {
                 for (int i = value.Length - 1; i >= 0; i--)
                 {
-                    Trace.WriteLine(value[i]);
-                    if (IsNumeric(Convert.ToString(value[i])))
+                    if (IsNumeric(Convert.ToString(value[i])) || value[i] == '-')
                     {
+                        //Trace.WriteLine(value[i] + " (NUMERIC)");
                         break;
                     }
                     else
                     {
-                        result = value.Substring(0, value.Length - i);
+                        //Trace.WriteLine(value[i] + " (NOT NUMERIC)");
+                        result = value.Substring(0, i);
                     }
                 }
             }

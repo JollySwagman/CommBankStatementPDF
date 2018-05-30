@@ -3,6 +3,7 @@ using CommBankStatementPDF.Business;
 using NUnit.Framework;
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
@@ -26,14 +27,16 @@ namespace CommBankStatementPDF.Tests
 
                 parser.ReadFile(file.FullName);
 
+                Assert.That(parser.Transactions.Count, Is.GreaterThan(0));
+
                 //Trace.WriteLine(string.Format("************{0} {1}", file.Name, parser.Year));
                 foreach (var tran in parser.Transactions)
                 {
-
-                    
-
                     //Trace.WriteLine(tran);
-                    Trace.WriteLine(string.Format("{0}\t{1}\t{2}", tran.Date,tran.Amount,tran.Biller));
+                    Trace.WriteLine(string.Format("{0}\t{1}\t{2}", tran.Date, tran.Amount, tran.Biller));
+
+                    Assert.That(tran.Amount, Is.Not.EqualTo(0));
+                    Assert.That(tran.Amount, Is.LessThan(3000));
                 }
 
                 Assert.That(parser.Year, Is.EqualTo(expectedYear));
@@ -82,7 +85,7 @@ namespace CommBankStatementPDF.Tests
 
             var trans = "07 Apr Bunnings 370000 Alexandria 160.00";
 
-            trans = "14 Feb Bunnings 370000 AlexandriaAU 157.25";
+            trans = "14 Feb Bunnings 370000 AlexandriaAU 157.25Transactions";
 
             var result = new Transaction(trans, 2001);
 
@@ -95,6 +98,23 @@ namespace CommBankStatementPDF.Tests
                 Assert.That(item.Date.Year > 1900);
                 Trace.WriteLine(item);
             }
+        }
+
+        [Test]
+        public void ParseToTransaction_Multiline()
+        {
+            var parser = new StatementParser();
+            
+            var lines = new List<string>(new string[] { "29 May Pu 52429 Groznjan Groznjan", "##5153           2000.00CROATIAN KUNAHR", "379.31Transactions" });
+
+            var result = new Transaction(lines, 2001);
+
+            Trace.WriteLine(result);
+
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Amount, Is.EqualTo(379.31));
+
         }
 
         [Test]
