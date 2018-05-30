@@ -33,7 +33,19 @@ namespace CommBankStatementPDF.Tests
             Assert.That(Transaction.GetAmountFromLine("10 Feb Payment Received, Thank You AU 100.00-"), Is.EqualTo(-100));
 
             Assert.That(Transaction.GetAmountFromLine("14 Feb Bunnings 370000 AlexandriaAU 157.25Transactions"), Is.Not.Null);
+
+
+            
         }
+
+        [Test]
+        public void ss()
+        {
+            var d = new Transaction("23 May 2015 - 23 Jun 2015", 2015);
+
+            Assert.That(d.ParseSuccess, Is.False);
+        }
+
 
 
 

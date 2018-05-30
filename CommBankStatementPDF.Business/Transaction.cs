@@ -30,7 +30,7 @@ namespace CommBankStatementPDF.Business
 
             this.Source = line;
 
-            if (line.Length > 10)
+            if (line.Length > 26)
             {
                 Regex r = new Regex(@"^\d{1,2} [A-z]{3}", RegexOptions.IgnoreCase);
                 Match m = r.Match(line.Substring(0, 6));
@@ -44,6 +44,9 @@ namespace CommBankStatementPDF.Business
 
                     if (lineDate.HasValue)
                     {
+                        Trace.WriteLine("");
+                        Trace.WriteLine(string.Format("NEW TRANS: {0}", lines[0]));
+
                         this.Date = lineDate.Value;
 
                         //30/03/2015
@@ -52,15 +55,15 @@ namespace CommBankStatementPDF.Business
                             var o = 0;
                         }
 
-                        if (line.Length > 20)
+                        if (line.Length > 26)
                         {
                             this.Biller = line.Substring(7, line.LastIndexOf(' ') - 7);
                         }
 
-                        var multiLine = lines[1].StartsWith("##");
+                        var multiLine = lines.Count >= 2 && lines[1].StartsWith("##");
 
                         var amount = GetAmountFromLine(line);
-                        if (!multiLine)
+                        if (!multiLine && amount.HasValue)
                         {
                             this.Amount = amount.Value;
                         }
@@ -75,7 +78,6 @@ namespace CommBankStatementPDF.Business
 
                                 if (decimal.TryParse(line2, out decimal x))
                                 {
-
                                     this.Amount = decimal.Parse(line2);
                                 }
                                 else
@@ -86,6 +88,10 @@ namespace CommBankStatementPDF.Business
                         }
 
                         this.ParseSuccess = !string.IsNullOrWhiteSpace(this.Biller);
+
+                        Trace.WriteLine(this.ToString());
+                        Trace.WriteLine("----------------------------------------------------------------");
+                        Trace.WriteLine("");
                     }
                 }
             }

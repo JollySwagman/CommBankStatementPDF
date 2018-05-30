@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
+using System.Linq;
 
 namespace CommBankStatementPDF.Business
 {
@@ -11,6 +11,13 @@ namespace CommBankStatementPDF.Business
 
         public List<Transaction> Transactions { get; set; }
         public string Source { get; private set; }
+
+        public decimal GetTransactionTotal()
+        {
+                return this.Transactions.Sum(x => x.Amount);
+        }
+
+        // New transactions and charges
 
         /// <summary>
         /// Read CBA PDF file and load Transactions
@@ -33,16 +40,13 @@ namespace CommBankStatementPDF.Business
         /// <returns></returns>
         /// <remarks> find transactions - "Date Transaction Details Amount (A$)"</remarks>
 
-        public string GetTransactions()
+        public void GetTransactions()
         {
             this.Transactions = new List<Transaction>();
 
-            //var lines = this.Source.Split('\n');
             var lines = new List<string>(this.Source.Split('\n'));
 
-            var trans = new StringBuilder();
-
-            //bool foundTransLine = false;
+            //var trans = new StringBuilder();
 
             for (int i = 0; i < lines.Count - 1; i++)
             {
@@ -59,39 +63,13 @@ namespace CommBankStatementPDF.Business
 
                 if (newTrans.ParseSuccess)
                 {
-                    //foundTransLine = true;
-
                     this.Transactions.Add(newTrans);
                 }
-                trans.AppendLine(lines[i]);
+                //trans.AppendLine(lines[i]);
             }
 
-            return trans.ToString();
+            //return trans.ToString();
         }
 
-        //public string GetTransactionsOLD()
-        //{
-        //    this.Transactions = new List<Transaction>();
-
-        //    var lines = this.Source.Split('\n');
-
-        //    var trans = new StringBuilder();
-
-        //    bool foundTransLine = false;
-
-        //    foreach (var item in lines)
-        //    {
-        //        var newTrans = new Transaction(item, Year);
-        //        if (newTrans.ParseSuccess)
-        //        {
-        //            foundTransLine = true;
-
-        //            this.Transactions.Add(newTrans);
-        //        }
-        //        trans.AppendLine(item);
-        //    }
-
-        //    return trans.ToString();
-        //}
     }
 }

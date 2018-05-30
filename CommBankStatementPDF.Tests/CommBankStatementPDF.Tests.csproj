@@ -63,6 +63,9 @@
     <None Include="TestFiles\VISA\Statement20110121.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="TestFiles\VISA\Statement20150623.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TestFiles\VISA\Statement20151218.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

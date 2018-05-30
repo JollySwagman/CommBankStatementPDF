@@ -6,12 +6,14 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 
 namespace CommBankStatementPDF.Tests
 {
     [TestFixture]
     public class BasicTestsVISA
     {
+        private string testFilename3 = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\VISA\Statement20150623.pdf");
         private string testFilename2 = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\VISA\Statement20151218.pdf");
         private string testFilenameOldFormat = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\VISA\Statement20110121.pdf");
 
@@ -27,13 +29,16 @@ namespace CommBankStatementPDF.Tests
 
                 parser.ReadFile(file.FullName);
 
+                Trace.WriteLine(string.Format("FILE: {0} TRANSACTIONS: {1}", file.Name, parser.Transactions));
+                Trace.WriteLine("******************************************************************************************");
+
                 Assert.That(parser.Transactions.Count, Is.GreaterThan(0));
 
                 //Trace.WriteLine(string.Format("************{0} {1}", file.Name, parser.Year));
                 foreach (var tran in parser.Transactions)
                 {
                     //Trace.WriteLine(tran);
-                    Trace.WriteLine(string.Format("{0}\t{1}\t{2}", tran.Date, tran.Amount, tran.Biller));
+                    //    Trace.WriteLine(string.Format("TEST: {0}\t{1}\t{2}", tran.Date, tran.Amount, tran.Biller));
 
                     Assert.That(tran.Amount, Is.Not.EqualTo(0));
                     Assert.That(tran.Amount, Is.LessThan(3000));
@@ -78,6 +83,26 @@ namespace CommBankStatementPDF.Tests
         }
 
         [Test]
+        public void XXX()
+        {
+            var parser = new StatementParser();
+            parser.ReadFile(testFilename3);
+
+            var sb = new StringBuilder();
+
+            foreach (var item in parser.Transactions)
+            {
+                Assert.That(item.Date.Year > 1900);
+                //Trace.WriteLine(item);
+
+                sb.AppendLine(item.ToString());
+            }
+
+            Trace.WriteLine("TOTAL: " + parser.GetTransactionTotal());
+            Assert.That(parser.GetTransactionTotal(), Is.EqualTo(7950.78));
+        }
+
+        [Test]
         public void ParseToTransaction_New_Format()
         {
             var parser = new StatementParser();
@@ -104,17 +129,15 @@ namespace CommBankStatementPDF.Tests
         public void ParseToTransaction_Multiline()
         {
             var parser = new StatementParser();
-            
+
             var lines = new List<string>(new string[] { "29 May Pu 52429 Groznjan Groznjan", "##5153           2000.00CROATIAN KUNAHR", "379.31Transactions" });
 
             var result = new Transaction(lines, 2001);
 
             Trace.WriteLine(result);
 
-
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Amount, Is.EqualTo(379.31));
-
         }
 
         [Test]
