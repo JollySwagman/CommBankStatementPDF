@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace CommBankStatementPDF.Business
 {
@@ -14,10 +13,13 @@ namespace CommBankStatementPDF.Business
 
         public decimal GetTransactionTotal()
         {
-                return this.Transactions.Sum(x => x.Amount);
+            decimal total = 0;
+            foreach (var item in this.Transactions)
+            {
+                total += item.Amount;
+            }
+            return total; // this.Transactions.Sum(x => x.Amount);
         }
-
-        // New transactions and charges
 
         /// <summary>
         /// Read CBA PDF file and load Transactions
@@ -70,6 +72,5 @@ namespace CommBankStatementPDF.Business
 
             //return trans.ToString();
         }
-
     }
 }

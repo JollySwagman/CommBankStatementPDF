@@ -26,12 +26,20 @@ namespace CommBankStatementPDF.Business
 
         public Transaction(IList<string> lines, int year)
         {
+            const int MIN_LENGTH = 6;// 24;
+
             var line = lines[0];
+            //Trace.WriteLine("LINE: " + line);
 
             this.Source = line;
 
-            if (line.Length > 26)
+            if (line.Length > MIN_LENGTH && IsDateHeader(line) == false)
             {
+                if (IsDateHeader(line))
+                {
+                    Trace.WriteLine(line);
+                }
+
                 Regex r = new Regex(@"^\d{1,2} [A-z]{3}", RegexOptions.IgnoreCase);
                 Match m = r.Match(line.Substring(0, 6));
 
@@ -42,23 +50,19 @@ namespace CommBankStatementPDF.Business
 
                     var lineDate = GetDateFromLine(line, year);
 
+                    //30/03/2015
+                    if (lineDate.HasValue && lineDate.Value.Equals(new DateTime(2015, 5, 29)))
+                    {
+                        var o = 0;
+                    }
+
                     if (lineDate.HasValue)
                     {
-                        Trace.WriteLine("");
                         Trace.WriteLine(string.Format("NEW TRANS: {0}", lines[0]));
 
                         this.Date = lineDate.Value;
 
-                        //30/03/2015
-                        if (lineDate.Value.Equals(new DateTime(2015, 3, 30)))
-                        {
-                            var o = 0;
-                        }
-
-                        if (line.Length > 26)
-                        {
-                            this.Biller = line.Substring(7, line.LastIndexOf(' ') - 7);
-                        }
+                        this.Biller = line.Substring(7, line.LastIndexOf(' ') - 7);
 
                         var multiLine = lines.Count >= 2 && lines[1].StartsWith("##");
 
@@ -95,6 +99,21 @@ namespace CommBankStatementPDF.Business
                     }
                 }
             }
+        }
+
+        public static bool IsDateHeader(string line)
+        {
+            // eg 23 May 2015- 23 Jun 2015
+
+            var pattern = @"^\d{1,2} [A-z]{3} \d{4}";
+
+            pattern = @"^\d{1,2} [A-z]{3} \d{4} - \d{1,2} [A-z]{3} \d{4}$";
+
+            var pattern2 = @"^\d{1,2} [A-z]{3} \d{4}- \d{1,2} [A-z]{3} \d{4}$";
+
+            bool result = new Regex(pattern, RegexOptions.IgnoreCase).Match(line).Success || new Regex(pattern2, RegexOptions.IgnoreCase).Match(line).Success;
+
+            return result;
         }
 
         public static decimal? GetAmountFromLine(string line)

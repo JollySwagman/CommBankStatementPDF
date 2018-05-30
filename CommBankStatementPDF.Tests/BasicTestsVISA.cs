@@ -94,12 +94,13 @@ namespace CommBankStatementPDF.Tests
             {
                 Assert.That(item.Date.Year > 1900);
                 //Trace.WriteLine(item);
-
                 sb.AppendLine(item.ToString());
             }
 
+            Trace.WriteLine("COUNT: " + parser.Transactions.Count);
             Trace.WriteLine("TOTAL: " + parser.GetTransactionTotal());
-            Assert.That(parser.GetTransactionTotal(), Is.EqualTo(7950.78));
+            Assert.That(parser.Transactions.Count, Is.EqualTo(84));
+            //Assert.That(parser.GetTransactionTotal(), Is.EqualTo(7950.78));
         }
 
         [Test]
