@@ -12,6 +12,25 @@ namespace CommBankStatementPDF.Business
         public List<Transaction> Transactions { get; set; }
         public string Source { get; private set; }
 
+        public string Filename { get; set; }
+
+        public StatementParser()
+        {
+
+        }
+
+        public StatementParser(string filename)
+        {
+            this.Filename = filename;
+            var fi = new FileInfo(this.Filename);
+
+            Trace.WriteLine("FILE: " + fi.FullName);
+
+            this.Year = Convert.ToInt32(fi.Name.Substring(9, 4));
+
+            this.Source = IOHelper.ReadPdfFile(fi.FullName);
+        }
+
         public decimal GetTransactionTotal()
         {
             decimal total = 0;
@@ -26,15 +45,8 @@ namespace CommBankStatementPDF.Business
         /// Read CBA PDF file and load Transactions
         /// </summary>
         /// <param name="filename"></param>
-        public void ReadFile(string filename)
+        public void ReadFile()
         {
-            var fi = new FileInfo(filename);
-
-            Trace.WriteLine("FILE: " + fi.FullName);
-
-            this.Year = Convert.ToInt32(fi.Name.Substring(9, 4));
-
-            this.Source = IOHelper.ReadPdfFile(fi.FullName);
 
             GetTransactions();
         }

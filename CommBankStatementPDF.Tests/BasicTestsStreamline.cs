@@ -2,6 +2,7 @@
 using NUnit.Framework;
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
@@ -16,14 +17,14 @@ namespace CommBankStatementPDF.Tests
         [Test]
         public void Read_All_Streamline_PDF_Files()
         {
-            var parser = new StatementParser();
-
             foreach (var item in Directory.GetFiles(@"C:\Users\Boss\Google Drive\Tax\Streamline", "*.pdf"))
             {
+                var parser = new StatementParser(item);
+
                 var file = new FileInfo(item);
                 var expectedYear = Convert.ToInt32(file.Name.Substring(9, 4));
 
-                parser.ReadFile(file.FullName);
+                parser.ReadFile();
 
                 Trace.WriteLine(string.Format("************{0} {1}", file.Name, parser.Year));
                 foreach (var tran in parser.Transactions)
@@ -40,8 +41,8 @@ namespace CommBankStatementPDF.Tests
         {
             //var contents = IOHelper.ReadPdfFile(testFilename2);
 
-            var parser = new StatementParser();
-            parser.ReadFile(testFilename2);
+            var parser = new StatementParser(testFilename2);
+            parser.ReadFile();
             //contents = parser.GetTransactions(contents);
 
             Assert.That(parser.Year, Is.GreaterThan(1900));
@@ -50,8 +51,8 @@ namespace CommBankStatementPDF.Tests
         [Test]
         public void ParseToTransaction_New_Format()
         {
-            var parser = new StatementParser();
-            parser.ReadFile(testFilename2);
+            var parser = new StatementParser(testFilename2);
+            parser.ReadFile();
 
             var trans = "07 Apr Bunnings 370000 Alexandria 160.00";
             var result = new Transaction(trans, 2001);
@@ -69,10 +70,12 @@ namespace CommBankStatementPDF.Tests
         [Test]
         public void ParseToTransaction_Old_Format()
         {
-            var parser = new StatementParser();
-            parser.ReadFile(testFilenameOldFormat);
+            var parser = new StatementParser(testFilenameOldFormat);
+            Trace.WriteLine(parser.Source);
 
-            //Trace.WriteLine(parser.Source);
+            parser.ReadFile();
+
+            Trace.WriteLine("");
 
             Assert.That(parser.Transactions, Is.Not.Null);
             Assert.That(parser.Transactions.Count, Is.EqualTo(73));
@@ -100,15 +103,17 @@ namespace CommBankStatementPDF.Tests
         //    Assert.That(Transaction.IsTransaction("24 Mar 2017- 24 Apr 2017"), Is.False);
         //}
 
-        //[Test]
-        //public void IOHelper_Reads_File()
-        //{
-        //    var parser = new StatementParser();
-        //    parser.ReadFile(testFilename);
-        //   var result = parser.GetTransactions();
+        [Test]
+        public void Read_SL_()
+        {
+            var lines = new List<string>(new string[] { @"10 Jun O'DRAWING APPR'L FEE 10.00 ) $714.12 CR", @"15 Jun NETBANK TFR", @"IRM Pay 03,607.00" });
 
-        //    Trace.WriteLine(result);
-        //}
+            var trans = new Transaction(lines, 2010);
+
+            Assert.That(trans.Amount, Is.EqualTo(10));
+
+//            Assert.That(new Transaction(lines, 2010).ParseSuccess, Is.False);
+        }
 
         //[Test]
         //public void IsCrap()

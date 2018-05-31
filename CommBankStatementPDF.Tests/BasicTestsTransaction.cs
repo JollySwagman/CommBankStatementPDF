@@ -13,26 +13,22 @@ namespace CommBankStatementPDF.Tests
         [Test]
         public void TrimEndAlpha_()
         {
-            Trace.WriteLine(Transaction.TrimEndAlpha("14 Feb Bunnings 370000 AlexandriaAU 157.25Transactions"));
+            Trace.WriteLine(LineParser.TrimEndAlpha("14 Feb Bunnings 370000 AlexandriaAU 157.25Transactions"));
 
-            Assert.That(Transaction.TrimEndAlpha("14 Feb Bunnings 370000 AlexandriaAU 157.25Transactions"), Is.EqualTo("14 Feb Bunnings 370000 AlexandriaAU 157.25"));
-
-            Assert.That(Transaction.TrimEndAlpha("abc"), Is.EqualTo(""));
-
-            Assert.That(Transaction.TrimEndAlpha("123abc"), Is.EqualTo("123"));
-
-            Assert.That(Transaction.TrimEndAlpha(""), Is.EqualTo(""));
-            Assert.That(Transaction.TrimEndAlpha(null), Is.EqualTo(null));
-            Assert.That(Transaction.TrimEndAlpha("123"), Is.EqualTo("123"));
-            Assert.That(Transaction.TrimEndAlpha("abc123"), Is.EqualTo("abc123"));
+            Assert.That(LineParser.TrimEndAlpha("14 Feb Bunnings 370000 AlexandriaAU 157.25Transactions"), Is.EqualTo("14 Feb Bunnings 370000 AlexandriaAU 157.25"));
+            Assert.That(LineParser.TrimEndAlpha("abc"), Is.EqualTo(""));
+            Assert.That(LineParser.TrimEndAlpha("123abc"), Is.EqualTo("123"));
+            Assert.That(LineParser.TrimEndAlpha(""), Is.EqualTo(""));
+            Assert.That(LineParser.TrimEndAlpha(null), Is.EqualTo(null));
+            Assert.That(LineParser.TrimEndAlpha("123"), Is.EqualTo("123"));
+            Assert.That(LineParser.TrimEndAlpha("abc123"), Is.EqualTo("abc123"));
         }
 
         [Test]
         public void GetAmountFromLine_()
         {
-            Assert.That(Transaction.GetAmountFromLine("10 Feb Payment Received, Thank You AU 100.00-"), Is.EqualTo(-100));
-
-            Assert.That(Transaction.GetAmountFromLine("14 Feb Bunnings 370000 AlexandriaAU 157.25Transactions"), Is.Not.Null);
+            Assert.That(LineParser.GetAmountFromLine("10 Feb Payment Received, Thank You AU 100.00-"), Is.EqualTo(-100));
+            Assert.That(LineParser.GetAmountFromLine("14 Feb Bunnings 370000 AlexandriaAU 157.25Transactions"), Is.Not.Null);
         }
 
         [Test]

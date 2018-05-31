@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -15,10 +16,6 @@ namespace CommBankStatementPDF.Business
         public bool ParseSuccess { get; private set; }
 
         private List<string> months = new List<string> { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
-
-        public Transaction()
-        {
-        }
 
         public Transaction(string line, int year) : this(new List<string>() { line }, year)
         {
@@ -62,32 +59,51 @@ namespace CommBankStatementPDF.Business
 
                         this.Date = lineDate.Value;
 
-                        //this.Biller = line.Substring(7, line.LastIndexOf(' ') - 7);
-                        this.Biller = line.Substring(7);
-
-                        var multiLine = lines.Count >= 2 && lines[1].StartsWith("##");
-
-                        var amount = GetAmountFromLine(line);
-                        if (!multiLine && amount.HasValue)
+                        if (StreamLine.IsBracketLine(line))
                         {
-                            this.Amount = amount.Value;
+                            var d = 0;
+                            var line2 = line.Substring(0, line.IndexOf(')'));
+                            this.Amount = LineParser.GetAmountFromLine(line2).GetValueOrDefault();
+                            this.Biller = line;
                         }
                         else
                         {
-                            Trace.WriteLine("       " + lines[0]);
-                            Trace.WriteLine("       " + lines[1]);
-                            Trace.WriteLine("       " + lines[2]);
-                            if (lines[1].StartsWith("##"))
-                            {
-                                var line2 = TrimEndAlpha(lines[2]);
+                            //this.Biller = line.Substring(7, line.LastIndexOf(' ') - 7);
+                            this.Biller = line.Substring(7);
 
-                                if (decimal.TryParse(line2, out decimal x))
+                            var multiLine1 = lines.Count >= 2 && lines[1].StartsWith("##");
+                            var multiLine2 = lines.Count >= 2 && lines[1].Count(f => f == ')') == 1;
+
+                            if (multiLine2)
+                            {
+                                var line2 = lines[1].Substring(0, lines[1].IndexOf(')'));
+                                this.Amount = LineParser.GetAmountFromLine(line2).GetValueOrDefault();
+                            }
+                            else
+                            {
+                                var amount = LineParser.GetAmountFromLine(line);
+                                if (!multiLine1 && amount.HasValue)
                                 {
-                                    this.Amount = decimal.Parse(line2);
+                                    this.Amount = amount.Value;
                                 }
                                 else
                                 {
-                                    this.Amount = amount.Value;
+                                    Trace.WriteLine("       " + lines[0]);
+                                    Trace.WriteLine("       " + lines[1]);
+                                    Trace.WriteLine("       " + lines[2]);
+                                    if (lines[1].StartsWith("##"))
+                                    {
+                                        var line2 = LineParser.TrimEndAlpha(lines[2]);
+
+                                        if (decimal.TryParse(line2, out decimal x))
+                                        {
+                                            this.Amount = decimal.Parse(line2);
+                                        }
+                                        else
+                                        {
+                                            this.Amount = amount.Value;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -124,18 +140,6 @@ namespace CommBankStatementPDF.Business
             return result;
         }
 
-        public static decimal? GetAmountFromLine(string line)
-        {
-            decimal? result = null;
-
-            line = TrimEndAlpha(line);
-
-            if (decimal.TryParse(line.Substring(line.LastIndexOf(' ') + 1), out decimal number))
-            {
-                result = number;
-            }
-            return result;
-        }
 
         public static DateTime? GetDateFromLine(string value, int year)
         {
@@ -154,33 +158,8 @@ namespace CommBankStatementPDF.Business
             return result;
         }
 
-        public static string TrimEndAlpha(string value)
-        {
-            string result = value;
-            if (value != null && !string.IsNullOrEmpty(value))
-            {
-                for (int i = value.Length - 1; i >= 0; i--)
-                {
-                    if (IsNumeric(Convert.ToString(value[i])) || value[i] == '-')
-                    {
-                        //Trace.WriteLine(value[i] + " (NUMERIC)");
-                        break;
-                    }
-                    else
-                    {
-                        //Trace.WriteLine(value[i] + " (NOT NUMERIC)");
-                        result = value.Substring(0, i);
-                    }
-                }
-            }
-            return result;
-        }
 
-        public static bool IsNumeric(string character)
-        {
-            return Int32.TryParse(character, out int x);
-        }
-
+ 
         public override string ToString()
         {
             var result = new StringBuilder();
