@@ -1,5 +1,4 @@
-﻿using System;
-using CommBankStatementPDF.Business;
+﻿using CommBankStatementPDF.Business;
 using NUnit.Framework;
 
 using System;
@@ -13,7 +12,6 @@ namespace CommBankStatementPDF.Tests
     {
         private string testFilename2 = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\Streamline\Statement20180430.pdf");
         private string testFilenameOldFormat = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\Streamline\Statement20100831.pdf");
-
 
         [Test]
         public void Read_All_Streamline_PDF_Files()
@@ -77,8 +75,8 @@ namespace CommBankStatementPDF.Tests
             //Trace.WriteLine(parser.Source);
 
             Assert.That(parser.Transactions, Is.Not.Null);
-            Assert.That(parser.Transactions.Count, Is.EqualTo(61));
-            
+            Assert.That(parser.Transactions.Count, Is.EqualTo(73));
+
             foreach (var item in parser.Transactions)
             {
                 Assert.That(item.Date.Year > 1900);

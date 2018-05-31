@@ -50,8 +50,8 @@ namespace CommBankStatementPDF.Tests
 
             var line2 = "23 May 2015- 23 Jun 2015";
 
-            Assert.That(Transaction.IsDateHeader(line1), Is.True);
-            Assert.That(Transaction.IsDateHeader(line2), Is.True);
+            Assert.That(Transaction.IsCrap(line1), Is.True);
+            Assert.That(Transaction.IsCrap(line2), Is.True);
 
             var tran = new Transaction(line1, 2015);
             Assert.That(tran.ParseSuccess, Is.False);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace CommBankStatementPDF.Business
@@ -28,6 +29,8 @@ namespace CommBankStatementPDF.Business
         public void ReadFile(string filename)
         {
             var fi = new FileInfo(filename);
+
+            Trace.WriteLine("FILE: " + fi.FullName);
 
             this.Year = Convert.ToInt32(fi.Name.Substring(9, 4));
 

@@ -1,5 +1,4 @@
-﻿using System;
-using CommBankStatementPDF.Business;
+﻿using CommBankStatementPDF.Business;
 using NUnit.Framework;
 
 using System;
@@ -42,28 +41,6 @@ namespace CommBankStatementPDF.Tests
 
                     Assert.That(tran.Amount, Is.Not.EqualTo(0));
                     Assert.That(tran.Amount, Is.LessThan(3000));
-                }
-
-                Assert.That(parser.Year, Is.EqualTo(expectedYear));
-            }
-        }
-
-        [Test]
-        public void Read_All_Streamline_PDF_Files()
-        {
-            var parser = new StatementParser();
-
-            foreach (var item in Directory.GetFiles(@"C:\Users\Boss\Google Drive\Tax\Streamline", "*.pdf"))
-            {
-                var file = new FileInfo(item);
-                var expectedYear = Convert.ToInt32(file.Name.Substring(9, 4));
-
-                parser.ReadFile(file.FullName);
-
-                Trace.WriteLine(string.Format("************{0} {1}", file.Name, parser.Year));
-                foreach (var tran in parser.Transactions)
-                {
-                    Trace.WriteLine(tran);
                 }
 
                 Assert.That(parser.Year, Is.EqualTo(expectedYear));

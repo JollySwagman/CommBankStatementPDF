@@ -33,9 +33,9 @@ namespace CommBankStatementPDF.Business
 
             this.Source = line;
 
-            if (line.Length > MIN_LENGTH && IsDateHeader(line) == false)
+            if (line.Length > MIN_LENGTH && IsCrap(line) == false)
             {
-                if (IsDateHeader(line))
+                if (IsCrap(line))
                 {
                     Trace.WriteLine(line);
                 }
@@ -62,7 +62,8 @@ namespace CommBankStatementPDF.Business
 
                         this.Date = lineDate.Value;
 
-                        this.Biller = line.Substring(7, line.LastIndexOf(' ') - 7);
+                        //this.Biller = line.Substring(7, line.LastIndexOf(' ') - 7);
+                        this.Biller = line.Substring(7);
 
                         var multiLine = lines.Count >= 2 && lines[1].StartsWith("##");
 
@@ -101,7 +102,7 @@ namespace CommBankStatementPDF.Business
             }
         }
 
-        public static bool IsDateHeader(string line)
+        public static bool IsCrap(string line)
         {
             // eg 23 May 2015- 23 Jun 2015
 
@@ -111,7 +112,14 @@ namespace CommBankStatementPDF.Business
 
             var pattern2 = @"^\d{1,2} [A-z]{3} \d{4}- \d{1,2} [A-z]{3} \d{4}$";
 
-            bool result = new Regex(pattern, RegexOptions.IgnoreCase).Match(line).Success || new Regex(pattern2, RegexOptions.IgnoreCase).Match(line).Success;
+            var pattern3 = @"^\d{1,2} ([^\s]+) \d{4}$";
+
+            bool result = new Regex(pattern, RegexOptions.IgnoreCase).Match(line).Success || new Regex(pattern3, RegexOptions.IgnoreCase).Match(line).Success || new Regex(pattern2, RegexOptions.IgnoreCase).Match(line).Success;
+
+            if (line.Contains("OPENING BALANCE") || line.Contains("CLOSING BALANCE"))
+            {
+                result = true;
+            }
 
             return result;
         }
