@@ -43,6 +43,5 @@ namespace CommBankStatementPDF.Business
         {
             return Int32.TryParse(character, out int x);
         }
-
     }
 }

@@ -34,7 +34,7 @@ namespace CommBankStatementPDF.Tests
         [Test]
         public void ss()
         {
-            var d = new Transaction("23 May 2015 - 23 Jun 2015", 2015);
+            var d = new Transaction("23 May 2015 - 23 Jun 2015", 2015, StatementParser.AccountType.StreamLine);
 
             Assert.That(d.ParseSuccess, Is.False);
         }
@@ -49,10 +49,10 @@ namespace CommBankStatementPDF.Tests
             Assert.That(Transaction.IsCrap(line1), Is.True);
             Assert.That(Transaction.IsCrap(line2), Is.True);
 
-            var tran = new Transaction(line1, 2015);
+            var tran = new Transaction(line1, 2015, StatementParser.AccountType.StreamLine);
             Assert.That(tran.ParseSuccess, Is.False);
 
-            var tran2 = new Transaction(line2, 2015);
+            var tran2 = new Transaction(line2, 2015, StatementParser.AccountType.StreamLine);
             Assert.That(tran2.ParseSuccess, Is.False);
         }
     }

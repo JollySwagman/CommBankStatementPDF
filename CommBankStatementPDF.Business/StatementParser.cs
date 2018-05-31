@@ -7,6 +7,12 @@ namespace CommBankStatementPDF.Business
 {
     public class StatementParser
     {
+        public enum AccountType
+        {
+            VISA,
+            StreamLine
+        }
+
         public int Year { get; private set; }
 
         public List<Transaction> Transactions { get; set; }
@@ -14,20 +20,20 @@ namespace CommBankStatementPDF.Business
 
         public string Filename { get; set; }
 
-        public StatementParser()
-        {
+        public AccountType Type { get; private set; }
 
+        public StatementParser(AccountType accountType)
+        {
+            this.Type = accountType;
         }
 
-        public StatementParser(string filename)
+        public StatementParser(string filename, AccountType accountType) : this(accountType)
         {
-            this.Filename = filename;
-            var fi = new FileInfo(this.Filename);
-
+            var fi = new FileInfo(filename);
             Trace.WriteLine("FILE: " + fi.FullName);
 
+            this.Filename = fi.FullName;
             this.Year = Convert.ToInt32(fi.Name.Substring(9, 4));
-
             this.Source = IOHelper.ReadPdfFile(fi.FullName);
         }
 
@@ -47,12 +53,11 @@ namespace CommBankStatementPDF.Business
         /// <param name="filename"></param>
         public void ReadFile()
         {
-
             GetTransactions();
         }
 
         /// <summary>
-        /// Extract tranactions from lines of text
+        /// Extract tranactions from source lines and populate Transactions collection
         /// </summary>
         /// <returns></returns>
         /// <remarks> find transactions - "Date Transaction Details Amount (A$)"</remarks>
@@ -63,29 +68,24 @@ namespace CommBankStatementPDF.Business
 
             var lines = new List<string>(this.Source.Split('\n'));
 
-            //var trans = new StringBuilder();
-
             for (int i = 0; i < lines.Count - 1; i++)
             {
                 Transaction newTrans = null;
 
                 if (i < lines.Count - 2)
                 {
-                    newTrans = new Transaction(new List<string>() { lines[i], lines[i + 1], lines[i + 2] }, Year);
+                    newTrans = new Transaction(new List<string>() { lines[i], lines[i + 1], lines[i + 2] }, Year, AccountType.VISA);
                 }
                 else
                 {
-                    newTrans = new Transaction(lines[i], Year);
+                    newTrans = new Transaction(lines[i], Year, AccountType.VISA);
                 }
 
                 if (newTrans.ParseSuccess)
                 {
                     this.Transactions.Add(newTrans);
                 }
-                //trans.AppendLine(lines[i]);
             }
-
-            //return trans.ToString();
         }
     }
 }

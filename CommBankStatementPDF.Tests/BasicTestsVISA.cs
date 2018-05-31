@@ -21,7 +21,7 @@ namespace CommBankStatementPDF.Tests
         {
             foreach (var item in Directory.GetFiles(@"C:\Users\Boss\Google Drive\Tax\VISA", "*.pdf"))
             {
-                var parser = new StatementParser(item);
+                var parser = new StatementParser(item, StatementParser.AccountType.VISA);
 
                 var file = new FileInfo(item);
                 var expectedYear = Convert.ToInt32(file.Name.Substring(9, 4));
@@ -52,7 +52,7 @@ namespace CommBankStatementPDF.Tests
         {
             //var contents = IOHelper.ReadPdfFile(testFilename2);
 
-            var parser = new StatementParser(VISA_Statement20151218);
+            var parser = new StatementParser(VISA_Statement20151218, StatementParser.AccountType.VISA);
             parser.ReadFile();
             //contents = parser.GetTransactions(contents);
 
@@ -62,7 +62,7 @@ namespace CommBankStatementPDF.Tests
         [Test]
         public void testFilename3_Should_Have_84_Transactions()
         {
-            var parser = new StatementParser(VISA_Statement20150623);
+            var parser = new StatementParser(VISA_Statement20150623, StatementParser.AccountType.VISA);
             parser.ReadFile();
 
             var sb = new StringBuilder();
@@ -83,14 +83,14 @@ namespace CommBankStatementPDF.Tests
         [Test]
         public void ParseToTransaction_New_Format()
         {
-            var parser = new StatementParser(VISA_Statement20151218);
+            var parser = new StatementParser(VISA_Statement20151218, StatementParser.AccountType.VISA);
             parser.ReadFile();
 
             var trans = "07 Apr Bunnings 370000 Alexandria 160.00";
 
             trans = "14 Feb Bunnings 370000 AlexandriaAU 157.25Transactions";
 
-            var result = new Transaction(trans, 2001);
+            var result = new Transaction(trans, 2001, StatementParser.AccountType.VISA);
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Amount, Is.GreaterThan(0));
@@ -106,11 +106,11 @@ namespace CommBankStatementPDF.Tests
         [Test]
         public void ParseToTransaction_Multiline()
         {
-            var parser = new StatementParser();
+            var parser = new StatementParser(StatementParser.AccountType.VISA);
 
             var lines = new List<string>(new string[] { "29 May Pu 52429 Groznjan Groznjan", "##5153           2000.00CROATIAN KUNAHR", "379.31Transactions" });
 
-            var result = new Transaction(lines, 2001);
+            var result = new Transaction(lines, 2001, StatementParser.AccountType.VISA);
 
             Trace.WriteLine(result);
 
@@ -121,7 +121,7 @@ namespace CommBankStatementPDF.Tests
         [Test]
         public void ParseToTransaction_Old_Format()
         {
-            var parser = new StatementParser(VISA_Statement20110121);
+            var parser = new StatementParser(VISA_Statement20110121, StatementParser.AccountType.VISA);
             parser.ReadFile();
 
             Trace.WriteLine(parser.Source);

@@ -19,7 +19,7 @@ namespace CommBankStatementPDF.Tests
         {
             foreach (var item in Directory.GetFiles(@"C:\Users\Boss\Google Drive\Tax\Streamline", "*.pdf"))
             {
-                var parser = new StatementParser(item);
+                var parser = new StatementParser(item, StatementParser.AccountType.StreamLine);
 
                 var file = new FileInfo(item);
                 var expectedYear = Convert.ToInt32(file.Name.Substring(9, 4));
@@ -41,7 +41,7 @@ namespace CommBankStatementPDF.Tests
         {
             //var contents = IOHelper.ReadPdfFile(testFilename2);
 
-            var parser = new StatementParser(testFilename2);
+            var parser = new StatementParser(testFilename2, StatementParser.AccountType.StreamLine);
             parser.ReadFile();
             //contents = parser.GetTransactions(contents);
 
@@ -51,11 +51,11 @@ namespace CommBankStatementPDF.Tests
         [Test]
         public void ParseToTransaction_New_Format()
         {
-            var parser = new StatementParser(testFilename2);
+            var parser = new StatementParser(testFilename2, StatementParser.AccountType.StreamLine);
             parser.ReadFile();
 
             var trans = "07 Apr Bunnings 370000 Alexandria 160.00";
-            var result = new Transaction(trans, 2001);
+            var result = new Transaction(trans, 2001, StatementParser.AccountType.StreamLine);
 
             Assert.That(result, Is.Not.Null);
 
@@ -70,7 +70,7 @@ namespace CommBankStatementPDF.Tests
         [Test]
         public void ParseToTransaction_Old_Format()
         {
-            var parser = new StatementParser(testFilenameOldFormat);
+            var parser = new StatementParser(testFilenameOldFormat, StatementParser.AccountType.StreamLine);
             Trace.WriteLine(parser.Source);
 
             parser.ReadFile();
@@ -108,11 +108,11 @@ namespace CommBankStatementPDF.Tests
         {
             var lines = new List<string>(new string[] { @"10 Jun O'DRAWING APPR'L FEE 10.00 ) $714.12 CR", @"15 Jun NETBANK TFR", @"IRM Pay 03,607.00" });
 
-            var trans = new Transaction(lines, 2010);
+            var trans = new Transaction(lines, 2010, StatementParser.AccountType.StreamLine);
 
             Assert.That(trans.Amount, Is.EqualTo(10));
 
-//            Assert.That(new Transaction(lines, 2010).ParseSuccess, Is.False);
+            //            Assert.That(new Transaction(lines, 2010).ParseSuccess, Is.False);
         }
 
         //[Test]

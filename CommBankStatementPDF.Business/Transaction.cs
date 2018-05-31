@@ -14,14 +14,15 @@ namespace CommBankStatementPDF.Business
         public string Biller { get; set; }
         public string Source { get; private set; }
         public bool ParseSuccess { get; private set; }
+        public StatementParser.AccountType Type { get; private set; }
 
         private List<string> months = new List<string> { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 
-        public Transaction(string line, int year) : this(new List<string>() { line }, year)
+        public Transaction(string line, int year, StatementParser.AccountType accountType) : this(new List<string>() { line }, year, accountType)
         {
         }
 
-        public Transaction(IList<string> lines, int year)
+        public Transaction(IList<string> lines, int year, StatementParser.AccountType accountType)
         {
             const int MIN_LENGTH = 6;// 24;
 
@@ -140,7 +141,6 @@ namespace CommBankStatementPDF.Business
             return result;
         }
 
-
         public static DateTime? GetDateFromLine(string value, int year)
         {
             DateTime? result = null;
@@ -158,8 +158,6 @@ namespace CommBankStatementPDF.Business
             return result;
         }
 
-
- 
         public override string ToString()
         {
             var result = new StringBuilder();
