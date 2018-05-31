@@ -83,6 +83,7 @@ namespace CommBankStatementPDF.Tests
             foreach (var item in parser.Transactions)
             {
                 Assert.That(item.Date.Year > 1900);
+                Assert.That(item.Type, Is.EqualTo(StatementParser.AccountType.StreamLine));
                 //Trace.WriteLine(item);
             }
         }
@@ -109,6 +110,8 @@ namespace CommBankStatementPDF.Tests
             var lines = new List<string>(new string[] { @"10 Jun O'DRAWING APPR'L FEE 10.00 ) $714.12 CR", @"15 Jun NETBANK TFR", @"IRM Pay 03,607.00" });
 
             var trans = new Transaction(lines, 2010, StatementParser.AccountType.StreamLine);
+
+            Trace.WriteLine(trans);
 
             Assert.That(trans.Amount, Is.EqualTo(10));
 

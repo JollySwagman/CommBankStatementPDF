@@ -20,16 +20,18 @@ namespace CommBankStatementPDF.Business
 
         public Transaction(string line, int year, StatementParser.AccountType accountType) : this(new List<string>() { line }, year, accountType)
         {
+            this.Type = accountType;
         }
 
         public Transaction(IList<string> lines, int year, StatementParser.AccountType accountType)
         {
             const int MIN_LENGTH = 6;// 24;
 
-            var line = lines[0];
-            //Trace.WriteLine("LINE: " + line);
+            this.Type = accountType;
 
+            var line = lines[0];
             this.Source = line;
+            //Trace.WriteLine("LINE: " + line);
 
             if (line.Length > MIN_LENGTH && IsCrap(line) == false)
             {
@@ -163,6 +165,7 @@ namespace CommBankStatementPDF.Business
             var result = new StringBuilder();
 
             result.AppendLine("[" + this.GetType().FullName + "]");
+            result.AppendLine("Type: " + this.Type.ToString());
             result.AppendLine("Date: " + this.Date);
             result.AppendLine("Biller: " + this.Biller);
             result.AppendLine("Amount: " + this.Amount);

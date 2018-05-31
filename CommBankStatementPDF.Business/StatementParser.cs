@@ -32,6 +32,7 @@ namespace CommBankStatementPDF.Business
             var fi = new FileInfo(filename);
             Trace.WriteLine("FILE: " + fi.FullName);
 
+            //this.Type=
             this.Filename = fi.FullName;
             this.Year = Convert.ToInt32(fi.Name.Substring(9, 4));
             this.Source = IOHelper.ReadPdfFile(fi.FullName);
@@ -74,11 +75,11 @@ namespace CommBankStatementPDF.Business
 
                 if (i < lines.Count - 2)
                 {
-                    newTrans = new Transaction(new List<string>() { lines[i], lines[i + 1], lines[i + 2] }, Year, AccountType.VISA);
+                    newTrans = new Transaction(new List<string>() { lines[i], lines[i + 1], lines[i + 2] }, Year, this.Type);
                 }
                 else
                 {
-                    newTrans = new Transaction(lines[i], Year, AccountType.VISA);
+                    newTrans = new Transaction(lines[i], Year, this.Type);
                 }
 
                 if (newTrans.ParseSuccess)
