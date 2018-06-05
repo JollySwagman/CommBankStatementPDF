@@ -63,134 +63,390 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="TestFiles\All\Streamline\Statement20100831.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20101201.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20110131.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20110430.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20110731.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20111031.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20120131.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20120430.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20120731.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20121031.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20130131.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20130430.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20130731.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20131031.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20140131.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20140430.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20140731.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20141031.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20150131.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20150430.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20150731.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20151031.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20160131.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20160430.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20160731.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20161007.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20161031.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20161207.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20170131.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20170430.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20170731.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20171031.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20180131.pdf" />
-    <None Include="TestFiles\All\Streamline\Statement20180430.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20100723.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20100824.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20100923.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20101025.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20101123.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20101223.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20110121.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20110218.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20110321.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20110420.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20110520.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20110621.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20110721.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20110822.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20110921.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20111021.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20111121.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20111221.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20120120.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20120222.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20120323.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20120423.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20120524.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20120625.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20120724.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20120823.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20120921.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20121023.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20121122.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20121220.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20130121.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20130220.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20130321.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20130422.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20130522.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20130620.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20130723.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20130822.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20130920.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20131022.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20131121.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20131220.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20140121.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20140220.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20140320.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20140422.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20140522.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20140620.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20140722.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20140821.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20140922.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20141022.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20141120.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20141222.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20150121.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20150220.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20150324.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20150423.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20150522.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20150623.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20150723.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20150821.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20150922.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20151022.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20151120.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20151218.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20160120.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20160218.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20160321.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20160420.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20160520.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20160621.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20160721.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20160819.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20160920.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20161020.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20161121.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20161221.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20170120.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20170221.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20170323.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20170424.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20170524.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20170622.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20170721.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20170822.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20170921.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20171020.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20171120.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20171220.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20180119.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20180220.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20180322.pdf" />
-    <None Include="TestFiles\All\VISA\Statement20180420.pdf" />
+    <None Include="TestFiles\All\Streamline\Statement20100831.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20101201.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20110131.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20110430.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20110731.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20111031.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20120131.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20120430.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20120731.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20121031.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20130131.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20130430.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20130731.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20131031.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20140131.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20140430.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20140731.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20141031.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20150131.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20150430.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20150731.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20151031.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20160131.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20160430.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20160731.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20161007.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20161031.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20161207.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20170131.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20170430.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20170731.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20171031.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20180131.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\Streamline\Statement20180430.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20100723.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20100824.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20100923.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20101025.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20101123.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20101223.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20110121.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20110218.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20110321.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20110420.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20110520.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20110621.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20110721.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20110822.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20110921.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20111021.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20111121.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20111221.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20120120.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20120222.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20120323.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20120423.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20120524.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20120625.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20120724.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20120823.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20120921.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20121023.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20121122.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20121220.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20130121.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20130220.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20130321.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20130422.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20130522.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20130620.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20130723.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20130822.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20130920.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20131022.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20131121.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20131220.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20140121.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20140220.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20140320.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20140422.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20140522.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20140620.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20140722.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20140821.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20140922.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20141022.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20141120.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20141222.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20150121.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20150220.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20150324.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20150423.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20150522.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20150623.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20150723.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20150821.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20150922.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20151022.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20151120.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20151218.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20160120.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20160218.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20160321.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20160420.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20160520.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20160621.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20160721.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20160819.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20160920.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20161020.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20161121.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20161221.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20170120.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20170221.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20170323.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20170424.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20170524.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20170622.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20170721.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20170822.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20170921.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20171020.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20171120.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20171220.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20180119.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20180220.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20180322.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\All\VISA\Statement20180420.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="TestFiles\Streamline\Statement20100831.pdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -19,7 +19,7 @@ namespace CommBankStatementPDF.Tests
         [Test]
         public void Read_All_Streamline_PDF_Files()
         {
-            foreach (var item in Directory.GetFiles(@"C:\Users\Boss\Google Drive\Tax\Streamline", "*.pdf"))
+            foreach (var item in Directory.GetFiles(Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\All\Streamline"), "*.pdf"))
             {
                 var parser = new StatementParser(item, StatementParser.AccountType.StreamLine);
 
