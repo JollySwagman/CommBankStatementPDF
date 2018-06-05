@@ -33,17 +33,31 @@ namespace CommBankStatementPDF.Tests
 
                 Assert.That(parser.Transactions.Count, Is.GreaterThan(0));
 
+
+
                 //Trace.WriteLine(string.Format("************{0} {1}", file.Name, parser.Year));
                 foreach (var tran in parser.Transactions)
                 {
                     //Trace.WriteLine(tran);
                     //    Trace.WriteLine(string.Format("TEST: {0}\t{1}\t{2}", tran.Date, tran.Amount, tran.Biller));
 
-                    Assert.That(tran.Amount, Is.Not.EqualTo(0));
+                    //                    Assert.That(tran.Amount, Is.Not.EqualTo(0));
+                    Assert.That(tran.Source, Is.Not.Empty);
                     Assert.That(tran.Amount, Is.LessThan(3000));
                 }
 
                 Assert.That(parser.Year, Is.EqualTo(expectedYear));
+
+
+                // TEMP!
+                // To db
+                if (true)
+                {
+                    Business.Data.DeleteAll();
+                    Business.Data.Save(parser.Transactions);
+                }
+
+
             }
         }
 
@@ -78,6 +92,9 @@ namespace CommBankStatementPDF.Tests
             Trace.WriteLine("TOTAL: " + parser.GetTransactionTotal());
             Assert.That(parser.Transactions.Count, Is.EqualTo(84));
             //Assert.That(parser.GetTransactionTotal(), Is.EqualTo(7950.78));
+
+            SaveTransactions(parser.Transactions);
+
         }
 
         [Test]
@@ -101,6 +118,9 @@ namespace CommBankStatementPDF.Tests
                 Assert.That(item.Date.Year > 1900);
                 Trace.WriteLine(item);
             }
+
+            Trace.WriteLine(parser.ToString());
+
         }
 
         [Test]
@@ -134,6 +154,24 @@ namespace CommBankStatementPDF.Tests
                 Assert.That(item.Date.Year > 1900);
                 Trace.WriteLine(item);
             }
+
+            Trace.WriteLine(parser.ToString());
+
+            SaveTransactions(parser.Transactions);
+
         }
+
+
+        public void SaveTransactions(IList<Transaction> trans)
+        {
+            // TEMP!
+            // To db
+            if (true)
+            {
+                Business.Data.DeleteAll();
+                Business.Data.Save(trans);
+            }
+        }
+
     }
 }

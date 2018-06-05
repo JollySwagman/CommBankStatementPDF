@@ -133,5 +133,17 @@ namespace CommBankStatementPDF.Business
                 }
             }
         }
+        public override string ToString()
+        {
+            var result = new StringBuilder();
+
+            result.AppendLine("[" + this.GetType().FullName + "]");
+            result.AppendLine("Type: " + this.Type.ToString());
+            result.AppendLine("Year: " + this.Year);
+            result.AppendLine("Transactions: " + this.Transactions.Count);
+
+            return result.ToString();
+        }
+
     }
 }

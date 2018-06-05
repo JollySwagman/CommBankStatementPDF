@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTests.cs" />
     <Compile Include="ParserTests.cs" />
     <Compile Include="BasicTestsStreamline.cs" />
     <Compile Include="BasicTestsTransaction.cs" />

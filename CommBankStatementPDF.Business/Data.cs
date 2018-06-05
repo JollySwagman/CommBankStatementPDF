@@ -8,7 +8,16 @@ namespace CommBankStatementPDF.Business
 {
     public class Data
     {
-        public void Save(IList<Transaction> transactions)
+        public static void DeleteAll()
+        {
+            using (var db = new CommBankStatementPDF.Data.CBAStatementsEntities())
+            {
+                db.Transactions.RemoveRange(db.Transactions);
+                db.SaveChanges();
+            }
+        }
+
+        public static void Save(IList<Transaction> transactions)
         {
             try
             {
@@ -18,7 +27,14 @@ namespace CommBankStatementPDF.Business
 
                     foreach (var item in transactions)
                     {
-                        customers.Add(new Transactions { AccountType = item.Type.ToString(), Amount = item.Amount, Biller = item.Biller, Date = item.Date });
+                        customers.Add(new Transactions
+                        {
+                            Source = item.Source[0],
+                            AccountType = item.Type.ToString(),
+                            Amount = item.Amount,
+                            Biller = item.Biller,
+                            Date = item.Date
+                        });
                     }
 
                     db.SaveChanges();

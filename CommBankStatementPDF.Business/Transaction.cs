@@ -32,13 +32,15 @@ namespace CommBankStatementPDF.Business
             var line = lines[0];
             this.Source = lines;
 
-            Trace.WriteLine("LINE0: " + lines[0]);
+            var debug = false;
+
+            Trace.WriteLineIf(debug, "LINE0: " + lines[0]);
             if (lines.Count > 1)
             {
-                Trace.WriteLine("LINE1: " + lines[1]);
+                Trace.WriteLineIf(debug, "LINE1: " + lines[1]);
                 if (lines.Count > 2)
                 {
-                    Trace.WriteLine("LINE2: " + lines[2]);
+                    Trace.WriteLineIf(debug, "LINE2: " + lines[2]);
                 }
             }
 
