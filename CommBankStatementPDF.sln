@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommBankStatementPDF.Busine
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommBankStatementPDF.Tests", "CommBankStatementPDF.Tests\CommBankStatementPDF.Tests.csproj", "{C9F32F3C-3CF4-49DB-8B98-125B3FF23970}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommBankStatementPDF.Data", "CommBankStatementPDF.Data\CommBankStatementPDF.Data.csproj", "{1FE0884D-1CA7-4DFE-906C-AF6820FE8460}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C9F32F3C-3CF4-49DB-8B98-125B3FF23970}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9F32F3C-3CF4-49DB-8B98-125B3FF23970}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9F32F3C-3CF4-49DB-8B98-125B3FF23970}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FE0884D-1CA7-4DFE-906C-AF6820FE8460}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FE0884D-1CA7-4DFE-906C-AF6820FE8460}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FE0884D-1CA7-4DFE-906C-AF6820FE8460}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FE0884D-1CA7-4DFE-906C-AF6820FE8460}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

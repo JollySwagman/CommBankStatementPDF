@@ -10,7 +10,9 @@ namespace CommBankStatementPDF.Business
 
             line = TrimEndAlpha(line);
 
-            if (decimal.TryParse(line.Substring(line.LastIndexOf(' ') + 1), out decimal number))
+            var num = line.Substring(line.LastIndexOf(' ') + 1);
+
+            if (num.Contains(".") && decimal.TryParse(num, out decimal number))
             {
                 result = number;
             }

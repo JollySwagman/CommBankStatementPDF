@@ -12,7 +12,7 @@ namespace CommBankStatementPDF.Business
         public DateTime Date { get; set; }
         public decimal Amount { get; set; }
         public string Biller { get; set; }
-        public string Source { get; private set; }
+        public IList<string> Source { get; private set; }
         public bool ParseSuccess { get; private set; }
         public StatementParser.AccountType Type { get; private set; }
 
@@ -30,8 +30,17 @@ namespace CommBankStatementPDF.Business
             this.Type = accountType;
 
             var line = lines[0];
-            this.Source = line;
-            //Trace.WriteLine("LINE: " + line);
+            this.Source = lines;
+
+            Trace.WriteLine("LINE0: " + lines[0]);
+            if (lines.Count > 1)
+            {
+                Trace.WriteLine("LINE1: " + lines[1]);
+                if (lines.Count > 2)
+                {
+                    Trace.WriteLine("LINE2: " + lines[2]);
+                }
+            }
 
             if (line.Length > MIN_LENGTH && IsCrap(line) == false)
             {
@@ -169,7 +178,10 @@ namespace CommBankStatementPDF.Business
             result.AppendLine("Date: " + this.Date);
             result.AppendLine("Biller: " + this.Biller);
             result.AppendLine("Amount: " + this.Amount);
-            result.AppendLine("Source: " + this.Source);
+            foreach (var item in this.Source)
+            {
+                result.AppendLine("Source: " + item);
+            }
 
             return result.ToString();
         }

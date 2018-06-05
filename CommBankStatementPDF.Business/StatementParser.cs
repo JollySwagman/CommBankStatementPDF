@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 
 namespace CommBankStatementPDF.Business
 {
@@ -16,9 +17,12 @@ namespace CommBankStatementPDF.Business
         public int Year { get; private set; }
 
         public List<Transaction> Transactions { get; set; }
-        public string Source { get; private set; }
+        public List<string> Lines { get; set; }
+        public string Source { get; set; }
 
         public string Filename { get; set; }
+
+        public string FilteredSource { get; set; }
 
         public AccountType Type { get; private set; }
 
@@ -38,6 +42,45 @@ namespace CommBankStatementPDF.Business
             this.Source = IOHelper.ReadPdfFile(fi.FullName);
         }
 
+        public void Parser2(List<string> pages)
+        {
+            this.Transactions = new List<Transaction>();
+            this.Lines = new List<string>();
+            var sb = new StringBuilder();
+
+            for (int i = 0; i < pages.Count; i++)
+            {
+                var foundBeginning = false;
+
+                var lines = pages[i].Split('\n');
+
+                sb.AppendLine("PAGE " + i + " =================================");
+
+                foreach (var line in lines)
+                {
+                    if (line.Contains(HelperVISA.BEGIN_TRANSACTIONS))
+                    {
+                        foundBeginning = true;
+                    }
+
+                    if (line.Contains(HelperVISA.END_TRANSACTIONS))
+                    {
+                        break;
+                    }
+
+                    if ((foundBeginning || i > 0) && Transaction.IsCrap(line) == false)
+                    {
+                        sb.AppendLine(line);
+                        this.Lines.Add(line);
+                    }
+                }
+
+                sb.AppendLine("---------------------------------------");
+            }
+
+            FilteredSource = sb.ToString();
+        }
+
         public decimal GetTransactionTotal()
         {
             decimal total = 0;
@@ -54,17 +97,6 @@ namespace CommBankStatementPDF.Business
         /// <param name="filename"></param>
         public void ReadFile()
         {
-            GetTransactions();
-        }
-
-        /// <summary>
-        /// Extract tranactions from source lines and populate Transactions collection
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks> find transactions - "Date Transaction Details Amount (A$)"</remarks>
-
-        public void GetTransactions()
-        {
             this.Transactions = new List<Transaction>();
 
             var lines = new List<string>(this.Source.Split('\n'));
@@ -72,6 +104,11 @@ namespace CommBankStatementPDF.Business
             for (int i = 0; i < lines.Count - 1; i++)
             {
                 Transaction newTrans = null;
+
+                if (lines[i].Contains("373578"))
+                {
+                    var t = 0;
+                }
 
                 if (i < lines.Count - 2)
                 {
@@ -84,6 +121,11 @@ namespace CommBankStatementPDF.Business
 
                 if (newTrans.ParseSuccess)
                 {
+                    if (newTrans.Amount > 3000)
+                    {
+                        var t = 0;
+                    }
+
                     this.Transactions.Add(newTrans);
                 }
             }

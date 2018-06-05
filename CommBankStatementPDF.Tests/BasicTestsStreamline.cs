@@ -11,6 +11,8 @@ namespace CommBankStatementPDF.Tests
     [TestFixture]
     public class BasicTestsStreamline
     {
+        private const decimal MAX_AMOUNT = 3000;
+
         private string testFilename2 = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\Streamline\Statement20180430.pdf");
         private string testFilenameOldFormat = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\Streamline\Statement20100831.pdf");
 
@@ -30,6 +32,8 @@ namespace CommBankStatementPDF.Tests
                 foreach (var tran in parser.Transactions)
                 {
                     Trace.WriteLine(tran);
+                    Assert.That(tran.Amount, Is.LessThan(MAX_AMOUNT));
+                    Assert.That(tran.Amount, Is.Not.EqualTo(0));
                 }
 
                 Assert.That(parser.Year, Is.EqualTo(expectedYear));
@@ -103,6 +107,24 @@ namespace CommBankStatementPDF.Tests
         //    Assert.That(Transaction.IsTransaction("Statement Period 24 Mar 2017 - 24 Apr 2017"), Is.False);
         //    Assert.That(Transaction.IsTransaction("24 Mar 2017- 24 Apr 2017"), Is.False);
         //}
+
+        //
+        //
+        //
+
+        [Test]
+        public void Read_SL2_()
+        {
+            var lines = new List<string>(new string[] { @"15 Jun NETBANK TFR", @"IRM Pay 03,607.00", @"15 Jun COMMONWEALTH BNK" });
+
+            var trans = new Transaction(lines, 2010, StatementParser.AccountType.StreamLine);
+
+            Trace.WriteLine(trans);
+
+            Assert.That(trans.Amount, Is.EqualTo(10));
+
+            //            Assert.That(new Transaction(lines, 2010).ParseSuccess, Is.False);
+        }
 
         [Test]
         public void Read_SL_()
