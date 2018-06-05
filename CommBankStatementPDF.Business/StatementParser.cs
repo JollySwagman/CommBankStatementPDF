@@ -6,6 +6,9 @@ using System.Text;
 
 namespace CommBankStatementPDF.Business
 {
+    /// <summary>
+    /// Manage the process of converting PDF to a collection of Transactions
+    /// </summary>
     public class StatementParser
     {
         public enum AccountType
