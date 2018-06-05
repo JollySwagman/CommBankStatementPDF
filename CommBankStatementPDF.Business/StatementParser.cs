@@ -13,6 +13,7 @@ namespace CommBankStatementPDF.Business
     {
         public enum AccountType
         {
+            Unknown,
             VISA,
             StreamLine
         }
@@ -129,10 +130,13 @@ namespace CommBankStatementPDF.Business
                         var t = 0;
                     }
 
+                    newTrans.SourceFile = this.Filename;
+
                     this.Transactions.Add(newTrans);
                 }
             }
         }
+
         public override string ToString()
         {
             var result = new StringBuilder();
@@ -144,6 +148,5 @@ namespace CommBankStatementPDF.Business
 
             return result.ToString();
         }
-
     }
 }

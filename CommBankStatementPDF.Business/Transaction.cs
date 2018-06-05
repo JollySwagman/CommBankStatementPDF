@@ -12,6 +12,7 @@ namespace CommBankStatementPDF.Business
         public DateTime Date { get; set; }
         public decimal Amount { get; set; }
         public string Biller { get; set; }
+        public string SourceFile { get; set; }
         public IList<string> Source { get; private set; }
         public bool ParseSuccess { get; private set; }
         public StatementParser.AccountType Type { get; private set; }

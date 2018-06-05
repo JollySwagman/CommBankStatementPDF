@@ -16,10 +16,34 @@ namespace CommBankStatementPDF.Tests
         private string VISA_Statement20151218 = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\VISA\Statement20151218.pdf");
         private string VISA_Statement20110121 = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\VISA\Statement20110121.pdf");
 
+        //[Test]
+        //public void Full_Integration()
+        //{
+        //    Business.Data.DeleteAll();
+
+        //    foreach (var account in new string[] { "VISA", "Streamline" })
+        //    {
+        //        foreach (var item in Directory.GetFiles(Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\All\" + account), "*.pdf"))
+        //        {
+        //            var parser = new StatementParser(item, StatementParser.AccountType.VISA);
+
+        //            var file = new FileInfo(item);
+        //            var expectedYear = Convert.ToInt32(file.Name.Substring(9, 4));
+
+        //            parser.ReadFile();
+
+        //            Trace.WriteLine(string.Format("FILE: {0} TRANSACTIONS: {1}", file.Name, parser.Transactions));
+        //            Trace.WriteLine("******************************************************************************************");
+
+        //            Business.Data.Save(parser.Transactions);
+        //        }
+        //    }
+        //}
+
         [Test]
         public void Read_All_VISA_PDF_Files()
         {
-            foreach (var item in Directory.GetFiles(@"C:\Users\Boss\Google Drive\Tax\VISA", "*.pdf"))
+            foreach (var item in Directory.GetFiles(Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\All\Streamline"), "*.pdf"))
             {
                 var parser = new StatementParser(item, StatementParser.AccountType.VISA);
 
@@ -33,8 +57,6 @@ namespace CommBankStatementPDF.Tests
 
                 Assert.That(parser.Transactions.Count, Is.GreaterThan(0));
 
-
-
                 //Trace.WriteLine(string.Format("************{0} {1}", file.Name, parser.Year));
                 foreach (var tran in parser.Transactions)
                 {
@@ -42,12 +64,12 @@ namespace CommBankStatementPDF.Tests
                     //    Trace.WriteLine(string.Format("TEST: {0}\t{1}\t{2}", tran.Date, tran.Amount, tran.Biller));
 
                     //                    Assert.That(tran.Amount, Is.Not.EqualTo(0));
+                    Assert.That(tran.SourceFile, Is.EqualTo(item));
                     Assert.That(tran.Source, Is.Not.Empty);
                     Assert.That(tran.Amount, Is.LessThan(3000));
                 }
 
                 Assert.That(parser.Year, Is.EqualTo(expectedYear));
-
 
                 // TEMP!
                 // To db
@@ -56,8 +78,6 @@ namespace CommBankStatementPDF.Tests
                     Business.Data.DeleteAll();
                     Business.Data.Save(parser.Transactions);
                 }
-
-
             }
         }
 
@@ -94,7 +114,6 @@ namespace CommBankStatementPDF.Tests
             //Assert.That(parser.GetTransactionTotal(), Is.EqualTo(7950.78));
 
             SaveTransactions(parser.Transactions);
-
         }
 
         [Test]
@@ -120,7 +139,6 @@ namespace CommBankStatementPDF.Tests
             }
 
             Trace.WriteLine(parser.ToString());
-
         }
 
         [Test]
@@ -158,9 +176,7 @@ namespace CommBankStatementPDF.Tests
             Trace.WriteLine(parser.ToString());
 
             SaveTransactions(parser.Transactions);
-
         }
-
 
         public void SaveTransactions(IList<Transaction> trans)
         {
@@ -172,6 +188,5 @@ namespace CommBankStatementPDF.Tests
                 Business.Data.Save(trans);
             }
         }
-
     }
 }

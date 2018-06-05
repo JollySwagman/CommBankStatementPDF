@@ -54,11 +54,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasicTestsVISA.cs" />
     <Compile Include="DataTests.cs" />
+    <Compile Include="IntegrationTests.cs" />
     <Compile Include="ParserTests.cs" />
     <Compile Include="BasicTestsStreamline.cs" />
     <Compile Include="BasicTestsTransaction.cs" />
-    <Compile Include="BasicTestsVISA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
