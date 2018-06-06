@@ -33,7 +33,8 @@ namespace CommBankStatementPDF.Business
                             AccountType = item.Type.ToString(),
                             Amount = item.Amount,
                             Biller = item.Biller,
-                            Date = item.Date
+                            Date = item.Date,
+                            Filename = item.SourceFile
                         });
                     }
 

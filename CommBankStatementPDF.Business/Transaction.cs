@@ -161,13 +161,16 @@ namespace CommBankStatementPDF.Business
             Regex r = new Regex(@"^\d{1,2} [A-z]{3}", RegexOptions.IgnoreCase);
             Match m = r.Match(value.Substring(0, 6));
 
-            var month = m.Value.Split(' ')[1];     // had a gutful of regex now
-            var day = m.Value.Substring(0, 2);
-
-            if (DateTime.TryParse("01-" + month + "-2000", out DateTime monthIndex))
+            if (!string.IsNullOrEmpty( m.Value))
             {
-                int dayIndex = Convert.ToInt32(day);
-                result = new DateTime(year, monthIndex.Month, dayIndex);
+                var month = m.Value.Split(' ')[1];     // had a gutful of regex now
+                var day = m.Value.Substring(0, 2);
+
+                if (DateTime.TryParse("01-" + month + "-2000", out DateTime monthIndex))
+                {
+                    int dayIndex = Convert.ToInt32(day);
+                    result = new DateTime(year, monthIndex.Month, dayIndex);
+                }
             }
             return result;
         }

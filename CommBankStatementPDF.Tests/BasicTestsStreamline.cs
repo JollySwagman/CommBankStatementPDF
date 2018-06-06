@@ -33,7 +33,7 @@ namespace CommBankStatementPDF.Tests
                 {
                     Trace.WriteLine(tran);
                     Assert.That(tran.Amount, Is.LessThan(MAX_AMOUNT));
-                    Assert.That(tran.Amount, Is.Not.EqualTo(0));
+//                    Assert.That(tran.Amount, Is.Not.EqualTo(0));
                 }
 
                 Assert.That(parser.Year, Is.EqualTo(expectedYear));

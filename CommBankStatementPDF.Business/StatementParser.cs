@@ -19,15 +19,11 @@ namespace CommBankStatementPDF.Business
         }
 
         public int Year { get; private set; }
-
         public List<Transaction> Transactions { get; set; }
         public List<string> Lines { get; set; }
         public string Source { get; set; }
-
-        public string Filename { get; set; }
-
+        public FileInfo Filename { get; set; }
         public string FilteredSource { get; set; }
-
         public AccountType Type { get; private set; }
 
         public StatementParser(AccountType accountType)
@@ -41,48 +37,9 @@ namespace CommBankStatementPDF.Business
             Trace.WriteLine("FILE: " + fi.FullName);
 
             //this.Type=
-            this.Filename = fi.FullName;
+            this.Filename = fi;
             this.Year = Convert.ToInt32(fi.Name.Substring(9, 4));
-            this.Source = IOHelper.ReadPdfFile(fi.FullName);
-        }
-
-        public void Parser2(List<string> pages)
-        {
-            this.Transactions = new List<Transaction>();
-            this.Lines = new List<string>();
-            var sb = new StringBuilder();
-
-            for (int i = 0; i < pages.Count; i++)
-            {
-                var foundBeginning = false;
-
-                var lines = pages[i].Split('\n');
-
-                sb.AppendLine("PAGE " + i + " =================================");
-
-                foreach (var line in lines)
-                {
-                    if (line.Contains(HelperVISA.BEGIN_TRANSACTIONS))
-                    {
-                        foundBeginning = true;
-                    }
-
-                    if (line.Contains(HelperVISA.END_TRANSACTIONS))
-                    {
-                        break;
-                    }
-
-                    if ((foundBeginning || i > 0) && Transaction.IsCrap(line) == false)
-                    {
-                        sb.AppendLine(line);
-                        this.Lines.Add(line);
-                    }
-                }
-
-                sb.AppendLine("---------------------------------------");
-            }
-
-            FilteredSource = sb.ToString();
+            this.Lines = IOHelper.ReadPdfFileToPages(fi.FullName);
         }
 
         public decimal GetTransactionTotal()
@@ -103,7 +60,7 @@ namespace CommBankStatementPDF.Business
         {
             this.Transactions = new List<Transaction>();
 
-            var lines = new List<string>(this.Source.Split('\n'));
+            var lines = this.Lines; //new List<string>(this.Source.Split('\n'));
 
             for (int i = 0; i < lines.Count - 1; i++)
             {
@@ -130,7 +87,7 @@ namespace CommBankStatementPDF.Business
                         var t = 0;
                     }
 
-                    newTrans.SourceFile = this.Filename;
+                    newTrans.SourceFile = this.Filename.Name;
 
                     this.Transactions.Add(newTrans);
                 }
@@ -144,9 +101,11 @@ namespace CommBankStatementPDF.Business
             result.AppendLine("[" + this.GetType().FullName + "]");
             result.AppendLine("Type: " + this.Type.ToString());
             result.AppendLine("Year: " + this.Year);
+            result.AppendLine("Year: " + this.Filename.FullName);
             result.AppendLine("Transactions: " + this.Transactions.Count);
 
             return result.ToString();
         }
     }
 }
+

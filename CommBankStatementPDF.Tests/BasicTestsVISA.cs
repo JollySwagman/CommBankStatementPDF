@@ -64,7 +64,7 @@ namespace CommBankStatementPDF.Tests
                     //    Trace.WriteLine(string.Format("TEST: {0}\t{1}\t{2}", tran.Date, tran.Amount, tran.Biller));
 
                     //                    Assert.That(tran.Amount, Is.Not.EqualTo(0));
-                    Assert.That(tran.SourceFile, Is.EqualTo(item));
+                    Assert.That(tran.SourceFile, Is.EqualTo(new FileInfo(item).Name));
                     Assert.That(tran.Source, Is.Not.Empty);
                     Assert.That(tran.Amount, Is.LessThan(3000));
                 }

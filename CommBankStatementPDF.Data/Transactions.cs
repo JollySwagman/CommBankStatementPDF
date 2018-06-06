@@ -20,5 +20,6 @@ namespace CommBankStatementPDF.Data
         public decimal Amount { get; set; }
         public System.DateTime Date { get; set; }
         public string Source { get; set; }
+        public string Filename { get; set; }
     }
 }

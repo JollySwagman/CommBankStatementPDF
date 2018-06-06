@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Data.cs" />
     <Compile Include="LineParser.cs" />
+    <Compile Include="Prototype.cs" />
     <Compile Include="StatementParser.cs" />
     <Compile Include="IOHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
