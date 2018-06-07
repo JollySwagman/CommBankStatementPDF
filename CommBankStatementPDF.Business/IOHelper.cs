@@ -13,7 +13,7 @@ namespace CommBankStatementPDF.Business
         {
             var text = ReadPdfFileToPages(fileName);
             var lines = GetLinesFromPages(text);
-            var result = IOHelper.GetPrototypesFromLines(lines);
+            var result = NewParser.GetPrototypesFromLines(lines);
 
             return result;
         }
@@ -72,46 +72,5 @@ namespace CommBankStatementPDF.Business
             return result;
         }
 
-        public static List<Prototype> GetPrototypesFromLines(List<string> lines)
-        {
-            var result = new List<Prototype>();
-            var newProto = new Prototype();
-            var lineCount = 0;
-
-            foreach (var line in lines)
-            {
-                Trace.WriteLine("   >>> "+ line);
-                var item = LineParser.TrimEndBalance(line);
-
-                var date = Transaction.GetDateFromLine(item, 2000);
-                if (date.HasValue)
-                {
-                    // save the previous and start a new one
-                    if (newProto != null)
-                    {
-                        result.Add(newProto);
-                    }
-                    lineCount = 0;
-                    newProto = new Prototype() { Date = date.Value, Line0 = item };
-                }
-                else
-                {
-                    lineCount++;
-                    if (lineCount == 0)
-                    {
-                        newProto.Line0 = item;
-                    }
-                    if (lineCount == 1)
-                    {
-                        newProto.Line1 = item;
-                    }
-                    if (lineCount == 2)
-                    {
-                        newProto.Line2 = item;
-                    }
-                }
-            }
-            return result;
-        }
-    }
+   }
 }

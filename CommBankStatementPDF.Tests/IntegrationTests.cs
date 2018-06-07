@@ -2,6 +2,7 @@
 using NUnit.Framework;
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
@@ -30,6 +31,30 @@ namespace CommBankStatementPDF.Tests
                     Trace.WriteLine("******************************************************************************************");
 
                     Business.Data.Save(parser.Transactions);
+                }
+            }
+        }
+
+        [Test]
+        public void Full_Integration_New_Parser()
+        {
+
+            var trans = new List<Transaction>();
+
+            foreach (var account in new StatementParser.AccountType[] { StatementParser.AccountType.StreamLine, StatementParser.AccountType.VISA })
+            {
+                foreach (var item in Directory.GetFiles(Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\All\" + account.ToString()), "*.pdf"))
+                {
+                    var prototypes = IOHelper.GetPrototypes(item);
+
+                    //var t = new Transaction()
+
+                    foreach (var p in prototypes)
+                    {
+                        Trace.WriteLine(p);
+                    }
+
+
                 }
             }
         }

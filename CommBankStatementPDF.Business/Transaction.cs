@@ -9,6 +9,8 @@ namespace CommBankStatementPDF.Business
 {
     public class Transaction
     {
+        public const int MIN_LINE_LENGTH = 6;
+
         public DateTime Date { get; set; }
         public decimal Amount { get; set; }
         public string Biller { get; set; }
@@ -159,19 +161,24 @@ namespace CommBankStatementPDF.Business
         {
             DateTime? result = null;
             Regex r = new Regex(@"^\d{1,2} [A-z]{3}", RegexOptions.IgnoreCase);
-            Match m = r.Match(value.Substring(0, 6));
 
-            if (!string.IsNullOrEmpty( m.Value))
+            if (string.IsNullOrWhiteSpace(value) == false && value.Length >= MIN_LINE_LENGTH)
             {
-                var month = m.Value.Split(' ')[1];     // had a gutful of regex now
-                var day = m.Value.Substring(0, 2);
+                Match m = r.Match(value.Substring(0, MIN_LINE_LENGTH));
 
-                if (DateTime.TryParse("01-" + month + "-2000", out DateTime monthIndex))
+                if (!string.IsNullOrEmpty(m.Value))
                 {
-                    int dayIndex = Convert.ToInt32(day);
-                    result = new DateTime(year, monthIndex.Month, dayIndex);
+                    var month = m.Value.Split(' ')[1];     // had a gutful of regex now
+                    var day = m.Value.Substring(0, 2);
+
+                    if (DateTime.TryParse("01-" + month + "-2000", out DateTime monthIndex))
+                    {
+                        int dayIndex = Convert.ToInt32(day);
+                        result = new DateTime(year, monthIndex.Month, dayIndex);
+                    }
                 }
             }
+
             return result;
         }
 

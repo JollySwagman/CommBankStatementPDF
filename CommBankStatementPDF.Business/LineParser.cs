@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace CommBankStatementPDF.Business
@@ -52,33 +51,40 @@ namespace CommBankStatementPDF.Business
         {
             string result = line;
 
-            //var xxx = new Regex(@"\$[-,0-9]+ CR$|DR$", RegexOptions.IgnoreCase).Match(line);
+            var pattern = @" [\(|\)] \$[-,0-9\.]+ [C|D]R";// @" \( \$[-,0-9\.]+ [C|D]R";
 
-            //            var xxx = new Regex(@"[-,0-9\.]+ CR$|DR$", RegexOptions.IgnoreCase).Match(line);
+            var match = new Regex(pattern, RegexOptions.IgnoreCase).Match(line);
 
-            //var xxx = new Regex(@"\( [-,0-9\.]+ CR$|DR$", RegexOptions.IgnoreCase).Match(line);
-
-            var pattern = @" \$[-,0-9\.]+ CR|DR";
-
-            pattern = @" \( \$[-,0-9\.]+ [C|D]R";   //@" \$[-,0-9\.]+ [C|D]R";
-
-            var xxx = new Regex(pattern, RegexOptions.IgnoreCase).Match(line);
-
-            //            Trace.WriteLine(line);
-
-            if (xxx.Success)
+            if (match.Success)
             {
-                result = line.Replace(xxx.Value, "");
-                //Trace.WriteLine("*****  " + line);
-                //Trace.WriteLine("*****  " + result);
-
-                //if (resul)
-                //{
-                //}
+                result = line.Replace(match.Value, "");
+                result = result.TrimEnd();
+                result = result.TrimEnd(')');
+                result = result.TrimEnd('(');
             }
             else
             {
-                Trace.WriteLine("-----  " + line);
+                result = TrimEndBalanceNoBracket(line);
+            }
+            return result;
+        }
+
+        public static string TrimEndBalanceNoBracket(string line)
+        {
+            string result = line;
+
+            var pattern = @" (\$[-,0-9\.]+) \$[-,0-9\.]+ [C|D]R";
+
+            var match = new Regex(pattern, RegexOptions.IgnoreCase).Match(line);
+
+            if (match.Success)
+            {
+                if (match.Groups.Count > 1)
+                {
+                    result = line.Replace(match.Value, "");
+                    result = result + " " + match.Groups[1].Value;
+                }
+
             }
 
             return result;

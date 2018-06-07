@@ -53,6 +53,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="LineParser.cs" />
+    <Compile Include="NewParser.cs" />
     <Compile Include="Prototype.cs" />
     <Compile Include="StatementParser.cs" />
     <Compile Include="IOHelper.cs" />
