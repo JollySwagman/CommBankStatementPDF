@@ -1,7 +1,6 @@
 ﻿using CommBankStatementPDF.Business;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 
@@ -42,49 +41,46 @@ namespace CommBankStatementPDF.Tests
         }
 
         [Test]
-        public void ReadPdfFileToPages_()
+        public void ReadPdfFileToPages_a()
         {
-            //Trace.WriteLine(IOHelper.ReadPdfFileToPages(testFilename2));
+            var result = IOHelper.GetPrototypes(testFilename2);
 
-            var text = IOHelper.ReadPdfFileToPages(testFilename2);
-
-            var lines = IOHelper.XXXParser2(text);
-
-            var transLines = new List<Prototype>();
-
-            var newProto = new Prototype();
-            var lineCount = 0;
-
-            foreach (var item in lines)
+            foreach (var item in result)
             {
                 Trace.WriteLine(item);
-                var date = Transaction.GetDateFromLine(item, 2000);
-                if (date.HasValue)
-                {
-                    // save the previous and start a new one
-                    if (newProto != null)
-                    {
-                        transLines.Add(newProto);
-                    }
-                    newProto = new Prototype() { Date = date.Value, Line0 = item };
-                }
-                else
-                {
-                    lineCount++;
-                    if (lineCount == 0)
-                    {
-                        newProto.Line0 = item;
-                    }
-                    if (lineCount == 1)
-                    {
-                        newProto.Line1 = item;
-                    }
-                    if (lineCount == 2)
-                    {
-                        newProto.Line2 = item;
-                    }
-                }
             }
+        }
+
+        //[Test]
+        //public void ReadPdfFileToPages_()
+        //{
+        //    //Trace.WriteLine(IOHelper.ReadPdfFileToPages(testFilename2));
+
+        //    var text = IOHelper.ReadPdfFileToPages(testFilename2);
+
+        //    var lines = IOHelper.XXXParser2(text);
+
+        //    var result = IOHelper.GetPrototypes(lines);
+
+        //    foreach (var item in result)
+        //    {
+        //        //Trace.WriteLine(item);
+        //    }
+        //}
+
+        //
+
+        [Test]
+        public void TrimEndBalance_()
+        {
+            //Assert.That(LineParser.TrimEndBalance("14 Apr"), Is.EqualTo("14 Apr"));
+
+            //26 Apr Church St Medical Newtown AU 72.00 ( $492.44 DR
+            Assert.That(LineParser.TrimEndBalance("26 Apr Church St Medical Newtown AU 72.00 ( $492.44 DR"), Is.EqualTo("26 Apr Church St Medical Newtown AU 72.00"));
+            Assert.That(LineParser.TrimEndBalance("14 Apr Transfer to xx1119 CommBank app 50.00 ( $9,279.46 CR"), Is.EqualTo("14 Apr Transfer to xx1119 CommBank app 50.00"));
+            Assert.That(LineParser.TrimEndBalance("14 Apr Transfer to xx1119 CommBank app 50.00 ( $9,279.46 DR"), Is.EqualTo("14 Apr Transfer to xx1119 CommBank app 50.00"));
+            Assert.That(LineParser.TrimEndBalance("14 Apr Transfer to xx1119 CommBank app 50.00 ( $9,279.46 XR"), Is.EqualTo("14 Apr Transfer to xx1119 CommBank app 50.00 ( $9,279.46 XR"));
+            Assert.That(LineParser.TrimEndBalance("14 Apr Transfer to xx1119 CommBank app 50.00 ( $9,279.46 CR"), Is.EqualTo("14 Apr Transfer to xx1119 CommBank app 50.00"));
         }
     }
 }

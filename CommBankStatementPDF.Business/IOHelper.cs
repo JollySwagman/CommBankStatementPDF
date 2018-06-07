@@ -2,31 +2,21 @@
 using iTextSharp.text.pdf.parser;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace CommBankStatementPDF.Business
 {
     public class IOHelper
     {
-        //public static string XXReadPdfFile(string fileName)
-        //{
-        //    StringBuilder text = new StringBuilder();
+        public static List<Prototype> GetPrototypes(string fileName)
+        {
+            var text = ReadPdfFileToPages(fileName);
+            var lines = GetLinesFromPages(text);
+            var result = IOHelper.GetPrototypesFromLines(lines);
 
-        //    PdfReader pdfReader = new PdfReader(fileName);
-
-        //    for (int page = 1; page <= pdfReader.NumberOfPages; page++)
-        //    {
-        //        //ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
-        //        ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
-        //        string currentText = PdfTextExtractor.GetTextFromPage(pdfReader, page, strategy);
-
-        //        currentText = Encoding.UTF8.GetString(ASCIIEncoding.Convert(Encoding.Default, Encoding.UTF8, Encoding.Default.GetBytes(currentText)));
-        //        text.Append(currentText);
-        //    }
-        //    pdfReader.Close();
-
-        //    return text.ToString();
-        //}
+            return result;
+        }
 
         public static List<string> ReadPdfFileToPages(string fileName)
         {
@@ -51,7 +41,7 @@ namespace CommBankStatementPDF.Business
             return result;
         }
 
-        public static List<string> XXXParser2(List<string> pages)
+        public static List<string> GetLinesFromPages(List<string> pages)
         {
             var result = new List<string>();
             var sb = new StringBuilder();
@@ -79,6 +69,48 @@ namespace CommBankStatementPDF.Business
 
             sb.AppendLine("---------------------------------------");
 
+            return result;
+        }
+
+        public static List<Prototype> GetPrototypesFromLines(List<string> lines)
+        {
+            var result = new List<Prototype>();
+            var newProto = new Prototype();
+            var lineCount = 0;
+
+            foreach (var line in lines)
+            {
+                Trace.WriteLine("   >>> "+ line);
+                var item = LineParser.TrimEndBalance(line);
+
+                var date = Transaction.GetDateFromLine(item, 2000);
+                if (date.HasValue)
+                {
+                    // save the previous and start a new one
+                    if (newProto != null)
+                    {
+                        result.Add(newProto);
+                    }
+                    lineCount = 0;
+                    newProto = new Prototype() { Date = date.Value, Line0 = item };
+                }
+                else
+                {
+                    lineCount++;
+                    if (lineCount == 0)
+                    {
+                        newProto.Line0 = item;
+                    }
+                    if (lineCount == 1)
+                    {
+                        newProto.Line1 = item;
+                    }
+                    if (lineCount == 2)
+                    {
+                        newProto.Line2 = item;
+                    }
+                }
+            }
             return result;
         }
     }
