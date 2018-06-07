@@ -71,6 +71,19 @@ namespace CommBankStatementPDF.Tests
         //
 
         [Test]
+        public void GetAmountFromLine_()
+        {
+
+            //20 Nov Transfer from xx4909 CommBank app $500.00
+
+            var x = LineParser.GetAmountFromLine(@"20 Nov Transfer from xx4909 CommBank app $500.00");
+            Assert.That(x.HasValue);
+            Assert.That(x.Value,Is.EqualTo(500));
+
+
+        }
+
+        [Test]
         public void TrimEndBalance_()
         {
             //Assert.That(LineParser.TrimEndBalance("14 Apr"), Is.EqualTo("14 Apr"));

@@ -17,6 +17,17 @@ namespace CommBankStatementPDF.Business
             {
                 result = number;
             }
+
+            // temp
+            var pattern = @" \$([-,0-9\.]+)";
+
+            var match = new Regex(pattern, RegexOptions.IgnoreCase).Match(line);
+
+            if (match.Success)
+            {
+                result = decimal.Parse(match.Groups[1].Value);
+            }
+
             return result;
         }
 
@@ -84,7 +95,6 @@ namespace CommBankStatementPDF.Business
                     result = line.Replace(match.Value, "");
                     result = result + " " + match.Groups[1].Value;
                 }
-
             }
 
             return result;
