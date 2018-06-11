@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 
 namespace CommBankStatementPDF.Tests
 {
@@ -38,6 +39,9 @@ namespace CommBankStatementPDF.Tests
         [Test]
         public void Full_Integration_New_Parser()
         {
+            Trace.WriteLine("Full_Integration_New_Parser()");
+
+            var sb = new StringBuilder();
 
             var trans = new List<Transaction>();
 
@@ -51,12 +55,13 @@ namespace CommBankStatementPDF.Tests
 
                     foreach (var p in prototypes)
                     {
+                        //sb.AppendLine(p.ToString());
                         Trace.WriteLine(p);
                     }
-
-
                 }
             }
+
+            //File.WriteAllText(Path.Combine(TestContext.CurrentContext.TestDirectory, "log.txt"), sb.ToString());
         }
     }
 }

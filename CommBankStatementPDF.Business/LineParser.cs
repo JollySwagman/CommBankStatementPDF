@@ -28,8 +28,33 @@ namespace CommBankStatementPDF.Business
                 result = decimal.Parse(match.Groups[1].Value);
             }
 
+
+            if (result == null)
+            {
+                result = GetAmountFromLineInterest(line);
+            }
+
             return result;
         }
+
+        private static decimal? GetAmountFromLineInterest(string line)
+        {
+            decimal? result = null;
+
+            var pattern = @"to \w+ \d{1,2}, \d{4} is ([-,0-9\.]+) ";
+
+            var match = new Regex(pattern, RegexOptions.IgnoreCase).Match(line);
+
+            if (match.Success)
+            {
+                result = decimal.Parse(match.Groups[1].Value);
+            }
+
+            return result;
+        }
+
+
+        //
 
         public static string TrimEndAlpha(string value)
         {
@@ -61,6 +86,11 @@ namespace CommBankStatementPDF.Business
         public static string TrimEndBalance(string line)
         {
             string result = line;
+
+            if (line.Contains("CREDIT INTEREST"))
+            {
+                var o = 0;
+            }
 
             var pattern = @" [\(|\)] \$[-,0-9\.]+ [C|D]R";// @" \( \$[-,0-9\.]+ [C|D]R";
 
@@ -99,6 +129,8 @@ namespace CommBankStatementPDF.Business
 
             return result;
         }
+
+
 
         public static bool IsNumeric(string character)
         {

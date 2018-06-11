@@ -2,7 +2,6 @@
 using iTextSharp.text.pdf.parser;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text;
 
 namespace CommBankStatementPDF.Business
@@ -13,7 +12,11 @@ namespace CommBankStatementPDF.Business
         {
             var text = ReadPdfFileToPages(fileName);
             var lines = GetLinesFromPages(text);
-            var result = NewParser.GetPrototypesFromLines(lines);
+
+            var parser = new NewParser();
+
+            //var result = parser.GetPrototypesFromLines(new Queue<string>(lines));
+            var result = parser.GetPrototypesFromLines(lines);
 
             return result;
         }
@@ -71,6 +74,5 @@ namespace CommBankStatementPDF.Business
 
             return result;
         }
-
-   }
+    }
 }

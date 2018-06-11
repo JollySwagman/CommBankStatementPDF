@@ -10,6 +10,7 @@ namespace CommBankStatementPDF.Business
         public string Line0 { get; set; }
         public string Line1 { get; set; }
         public string Line2 { get; set; }
+        public string Line3 { get; set; }
 
         public override string ToString()
         {
@@ -19,7 +20,7 @@ namespace CommBankStatementPDF.Business
             result.AppendLine("Date: " + this.Date);
             result.AppendLine("Line0: " + this.Line0);
             result.AppendLine("Line1: " + this.Line1);
-            result.AppendLine("Line2: " + this.Line2);
+            result.AppendLine("Line3: " + this.Line3);
             result.Append("Amount: " + this.Amount);
             if (this.Amount == 0)
             {
