@@ -14,17 +14,17 @@ namespace CommBankStatementPDF.Tests
         private string testFilename2 = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\Streamline\Statement20180430.pdf");
         private string testFilenameOldFormat = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\Streamline\Statement20100831.pdf");
 
-        [Test]
-        public void Get_Pages()
-        {
-            var pages = IOHelper.ReadPdfFileToPages(testFilename2);
+        //[Test]
+        //public void Get_Pages()
+        //{
+        //    var pages = IOHelper.ReadPdfFileToPages(testFilename2);
 
-            var parser = new StatementParser(testFilename2, AccountType.StreamLine);
+        //    var parser = new StatementParser(testFilename2, AccountType.StreamLine);
 
-            //parser.Parser2(pages);
+        //    //parser.Parser2(pages);
 
-            Trace.WriteLine(parser.FilteredSource);
-        }
+        //    Trace.WriteLine(parser.FilteredSource);
+        //}
 
         [Test]
         public void Filter_Lines()

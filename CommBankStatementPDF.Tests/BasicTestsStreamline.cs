@@ -16,81 +16,81 @@ namespace CommBankStatementPDF.Tests
         private string testFilename2 = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\Streamline\Statement20180430.pdf");
         private string testFilenameOldFormat = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\Streamline\Statement20100831.pdf");
 
-        [Test]
-        public void Read_All_Streamline_PDF_Files()
-        {
-            foreach (var item in Directory.GetFiles(Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\All\Streamline"), "*.pdf"))
-            {
-                var parser = new StatementParser(item, AccountType.StreamLine);
+//        [Test]
+//        public void Read_All_Streamline_PDF_Files()
+//        {
+//            foreach (var item in Directory.GetFiles(Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\All\Streamline"), "*.pdf"))
+//            {
+//                var parser = new StatementParser(item, AccountType.StreamLine);
 
-                var file = new FileInfo(item);
-                var expectedYear = Convert.ToInt32(file.Name.Substring(9, 4));
+//                var file = new FileInfo(item);
+//                var expectedYear = Convert.ToInt32(file.Name.Substring(9, 4));
 
-                parser.ReadFile();
+//                parser.ReadFile();
 
-                Trace.WriteLine(string.Format("************{0} {1}", file.Name, parser.Year));
-                foreach (var tran in parser.Transactions)
-                {
-                    Trace.WriteLine(tran);
-                    Assert.That(tran.Amount, Is.LessThan(MAX_AMOUNT));
-//                    Assert.That(tran.Amount, Is.Not.EqualTo(0));
-                }
+//                Trace.WriteLine(string.Format("************{0} {1}", file.Name, parser.Year));
+//                foreach (var tran in parser.Transactions)
+//                {
+//                    Trace.WriteLine(tran);
+//                    Assert.That(tran.Amount, Is.LessThan(MAX_AMOUNT));
+////                    Assert.That(tran.Amount, Is.Not.EqualTo(0));
+//                }
 
-                Assert.That(parser.Year, Is.EqualTo(expectedYear));
-            }
-        }
+//                Assert.That(parser.Year, Is.EqualTo(expectedYear));
+//            }
+//        }
 
-        [Test]
-        public void GetYear()
-        {
-            //var contents = IOHelper.ReadPdfFile(testFilename2);
+//        [Test]
+//        public void GetYear()
+//        {
+//            //var contents = IOHelper.ReadPdfFile(testFilename2);
 
-            var parser = new StatementParser(testFilename2, AccountType.StreamLine);
-            parser.ReadFile();
-            //contents = parser.GetTransactions(contents);
+//            var parser = new StatementParser(testFilename2, AccountType.StreamLine);
+//            parser.ReadFile();
+//            //contents = parser.GetTransactions(contents);
 
-            Assert.That(parser.Year, Is.GreaterThan(1900));
-        }
+//            Assert.That(parser.Year, Is.GreaterThan(1900));
+//        }
 
-        [Test]
-        public void ParseToTransaction_New_Format()
-        {
-            var parser = new StatementParser(testFilename2, AccountType.StreamLine);
-            parser.ReadFile();
+//        [Test]
+//        public void ParseToTransaction_New_Format()
+//        {
+//            var parser = new StatementParser(testFilename2, AccountType.StreamLine);
+//            parser.ReadFile();
 
-            var trans = "07 Apr Bunnings 370000 Alexandria 160.00";
-            var result = new Transaction(trans, 2001, AccountType.StreamLine);
+//            var trans = "07 Apr Bunnings 370000 Alexandria 160.00";
+//            var result = new Transaction(trans, 2001, AccountType.StreamLine);
 
-            Assert.That(result, Is.Not.Null);
+//            Assert.That(result, Is.Not.Null);
 
-            Trace.WriteLine("*****************************************************");
-            foreach (var item in parser.Transactions)
-            {
-                Assert.That(item.Date.Year > 1900);
-                Trace.WriteLine(item);
-            }
-        }
+//            Trace.WriteLine("*****************************************************");
+//            foreach (var item in parser.Transactions)
+//            {
+//                Assert.That(item.Date.Year > 1900);
+//                Trace.WriteLine(item);
+//            }
+//        }
 
-        [Test]
-        public void ParseToTransaction_Old_Format()
-        {
-            var parser = new StatementParser(testFilenameOldFormat, AccountType.StreamLine);
-            Trace.WriteLine(parser.Source);
+//        [Test]
+//        public void ParseToTransaction_Old_Format()
+//        {
+//            var parser = new StatementParser(testFilenameOldFormat, AccountType.StreamLine);
+//            Trace.WriteLine(parser.Source);
 
-            parser.ReadFile();
+//            parser.ReadFile();
 
-            Trace.WriteLine("");
+//            Trace.WriteLine("");
 
-            Assert.That(parser.Transactions, Is.Not.Null);
-            Assert.That(parser.Transactions.Count, Is.EqualTo(73));
+//            Assert.That(parser.Transactions, Is.Not.Null);
+//            Assert.That(parser.Transactions.Count, Is.EqualTo(73));
 
-            foreach (var item in parser.Transactions)
-            {
-                Assert.That(item.Date.Year > 1900);
-                Assert.That(item.Type, Is.EqualTo(AccountType.StreamLine));
-                //Trace.WriteLine(item);
-            }
-        }
+//            foreach (var item in parser.Transactions)
+//            {
+//                Assert.That(item.Date.Year > 1900);
+//                Assert.That(item.Type, Is.EqualTo(AccountType.StreamLine));
+//                //Trace.WriteLine(item);
+//            }
+//        }
 
         //[Test]
         //public void IsTransaction_Identifies_Line_Begins_With()
@@ -112,33 +112,33 @@ namespace CommBankStatementPDF.Tests
         //
         //
 
-        [Test]
-        public void Read_SL2_()
-        {
-            var lines = new List<string>(new string[] { @"15 Jun NETBANK TFR", @"IRM Pay 03,607.00", @"15 Jun COMMONWEALTH BNK" });
+        //[Test]
+        //public void Read_SL2_()
+        //{
+        //    var lines = new List<string>(new string[] { @"15 Jun NETBANK TFR", @"IRM Pay 03,607.00", @"15 Jun COMMONWEALTH BNK" });
 
-            var trans = new Transaction(lines, 2010, AccountType.StreamLine);
+        //    var trans = new Transaction(lines, 2010, AccountType.StreamLine);
 
-            Trace.WriteLine(trans);
+        //    Trace.WriteLine(trans);
 
-            Assert.That(trans.Amount, Is.EqualTo(10));
+        //    Assert.That(trans.Amount, Is.EqualTo(10));
 
-            //            Assert.That(new Transaction(lines, 2010).ParseSuccess, Is.False);
-        }
+        //    //            Assert.That(new Transaction(lines, 2010).ParseSuccess, Is.False);
+        //}
 
-        [Test]
-        public void Read_SL_()
-        {
-            var lines = new List<string>(new string[] { @"10 Jun O'DRAWING APPR'L FEE 10.00 ) $714.12 CR", @"15 Jun NETBANK TFR", @"IRM Pay 03,607.00" });
+        //[Test]
+        //public void Read_SL_()
+        //{
+        //    var lines = new List<string>(new string[] { @"10 Jun O'DRAWING APPR'L FEE 10.00 ) $714.12 CR", @"15 Jun NETBANK TFR", @"IRM Pay 03,607.00" });
 
-            var trans = new Transaction(lines, 2010, AccountType.StreamLine);
+        //    var trans = new Transaction(lines, 2010, AccountType.StreamLine);
 
-            Trace.WriteLine(trans);
+        //    Trace.WriteLine(trans);
 
-            Assert.That(trans.Amount, Is.EqualTo(10));
+        //    Assert.That(trans.Amount, Is.EqualTo(10));
 
-            //            Assert.That(new Transaction(lines, 2010).ParseSuccess, Is.False);
-        }
+        //    //            Assert.That(new Transaction(lines, 2010).ParseSuccess, Is.False);
+        //}
 
         //[Test]
         //public void IsCrap()

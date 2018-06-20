@@ -102,7 +102,7 @@ namespace CommBankStatementPDF.Business
                     break;
                 }
 
-                if ((foundBeginning) && Transaction.IsCrap(line) == false)
+                if ((foundBeginning) && LineParser.IsCrap(line) == false)
                 {
                     sb.AppendLine(line);
                     result.Add(line);

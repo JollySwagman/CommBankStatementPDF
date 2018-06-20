@@ -50,18 +50,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Enumerations.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="HelperStreamline.cs" />
     <Compile Include="LineParser.cs" />
     <Compile Include="NewParser.cs" />
     <Compile Include="Prototype.cs" />
-    <Compile Include="StatementParser.cs" />
     <Compile Include="IOHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HelperVISA.cs" />
     <Compile Include="StreamLine.cs" />
-    <Compile Include="Transaction.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

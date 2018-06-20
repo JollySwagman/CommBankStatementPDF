@@ -30,29 +30,29 @@ namespace CommBankStatementPDF.Tests
             Assert.That(LineParser.GetAmountFromLine("14 Feb Bunnings 370000 AlexandriaAU 157.25Transactions"), Is.Not.Null);
         }
 
-        [Test]
-        public void ss()
-        {
-            var d = new Transaction("23 May 2015 - 23 Jun 2015", 2015, AccountType.StreamLine);
+        //[Test]
+        //public void ss()
+        //{
+        //    var d = new Transaction("23 May 2015 - 23 Jun 2015", 2015, AccountType.StreamLine);
 
-            Assert.That(d.ParseSuccess, Is.False);
-        }
+        //    Assert.That(d.ParseSuccess, Is.False);
+        //}
 
-        [Test]
-        public void ss2()
-        {
-            var line1 = "23 May 2015 - 23 Jun 2015";
+        //[Test]
+        //public void ss2()
+        //{
+        //    var line1 = "23 May 2015 - 23 Jun 2015";
 
-            var line2 = "23 May 2015- 23 Jun 2015";
+        //    var line2 = "23 May 2015- 23 Jun 2015";
 
-            Assert.That(Transaction.IsCrap(line1), Is.True);
-            Assert.That(Transaction.IsCrap(line2), Is.True);
+        //    Assert.That(Transaction.IsCrap(line1), Is.True);
+        //    Assert.That(Transaction.IsCrap(line2), Is.True);
 
-            var tran = new Transaction(line1, 2015, AccountType.StreamLine);
-            Assert.That(tran.ParseSuccess, Is.False);
+        //    var tran = new Transaction(line1, 2015, AccountType.StreamLine);
+        //    Assert.That(tran.ParseSuccess, Is.False);
 
-            var tran2 = new Transaction(line2, 2015, AccountType.StreamLine);
-            Assert.That(tran2.ParseSuccess, Is.False);
-        }
+        //    var tran2 = new Transaction(line2, 2015, AccountType.StreamLine);
+        //    Assert.That(tran2.ParseSuccess, Is.False);
+        //}
     }
 }

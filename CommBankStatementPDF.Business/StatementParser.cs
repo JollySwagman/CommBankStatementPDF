@@ -6,12 +6,6 @@ using System.Text;
 
 namespace CommBankStatementPDF.Business
 {
-    public enum AccountType
-    {
-        Unknown,
-        VISA,
-        StreamLine
-    }
 
     /// <summary>
     /// Manage the process of converting PDF to a collection of Transactions

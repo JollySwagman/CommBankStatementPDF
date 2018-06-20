@@ -5,6 +5,56 @@ namespace CommBankStatementPDF.Business
 {
     public class LineParser
     {
+        public const int MIN_LINE_LENGTH = 6;
+
+        public static DateTime? GetDateFromLine(string value, int year)
+        {
+            DateTime? result = null;
+            Regex r = new Regex(@"^\d{1,2} [A-z]{3}", RegexOptions.IgnoreCase);
+
+            if (string.IsNullOrWhiteSpace(value) == false && value.Length >= MIN_LINE_LENGTH)
+            {
+                Match m = r.Match(value.Substring(0, MIN_LINE_LENGTH));
+
+                if (!string.IsNullOrEmpty(m.Value))
+                {
+                    var month = m.Value.Split(' ')[1];     // had a gutful of regex now
+                    var day = m.Value.Substring(0, 2);
+
+                    if (DateTime.TryParse("01-" + month + "-2000", out DateTime monthIndex))
+                    {
+                        int dayIndex = Convert.ToInt32(day);
+                        result = new DateTime(year, monthIndex.Month, dayIndex);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+
+        public static bool IsCrap(string line)
+        {
+            // eg 23 May 2015- 23 Jun 2015
+
+            var pattern = @"^\d{1,2} [A-z]{3} \d{4}";
+
+            pattern = @"^\d{1,2} [A-z]{3} \d{4} - \d{1,2} [A-z]{3} \d{4}$";
+
+            var pattern2 = @"^\d{1,2} [A-z]{3} \d{4}- \d{1,2} [A-z]{3} \d{4}$";
+
+            var pattern3 = @"^\d{1,2} ([^\s]+) \d{4}$";
+
+            bool result = new Regex(pattern, RegexOptions.IgnoreCase).Match(line).Success || new Regex(pattern3, RegexOptions.IgnoreCase).Match(line).Success || new Regex(pattern2, RegexOptions.IgnoreCase).Match(line).Success;
+
+            if (line.Contains("OPENING BALANCE") || line.Contains("CLOSING BALANCE"))
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
         public static decimal? GetAmountFromLine(string line)
         {
             decimal? result = null;

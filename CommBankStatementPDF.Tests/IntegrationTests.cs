@@ -12,29 +12,29 @@ namespace CommBankStatementPDF.Tests
     [TestFixture]
     public class IntegrationTests
     {
-        [Test, Ignore("obs")]
-        public void Full_Integration()
-        {
-            Business.Data.DeleteAll();
+        //[Test, Ignore("obs")]
+        //public void Full_Integration()
+        //{
+        //    Business.Data.DeleteAll();
 
-            foreach (var account in new AccountType[] { AccountType.StreamLine, AccountType.VISA })
-            {
-                foreach (var item in Directory.GetFiles(Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\All\" + account.ToString()), "*.pdf"))
-                {
-                    var parser = new StatementParser(item, account);
+        //    foreach (var account in new AccountType[] { AccountType.StreamLine, AccountType.VISA })
+        //    {
+        //        foreach (var item in Directory.GetFiles(Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\All\" + account.ToString()), "*.pdf"))
+        //        {
+        //            var parser = new StatementParser(item, account);
 
-                    var file = new FileInfo(item);
-                    var expectedYear = Convert.ToInt32(file.Name.Substring(9, 4));
+        //            var file = new FileInfo(item);
+        //            var expectedYear = Convert.ToInt32(file.Name.Substring(9, 4));
 
-                    parser.ReadFile();
+        //            parser.ReadFile();
 
-                    Trace.WriteLine(string.Format("FILE: {0} TRANSACTIONS: {1}", file.Name, parser.Transactions));
-                    Trace.WriteLine("******************************************************************************************");
+        //            Trace.WriteLine(string.Format("FILE: {0} TRANSACTIONS: {1}", file.Name, parser.Transactions));
+        //            Trace.WriteLine("******************************************************************************************");
 
-                    Business.Data.Save(parser.Transactions);
-                }
-            }
-        }
+        //            Business.Data.Save(parser.Transactions);
+        //        }
+        //    }
+        //}
 
         [Test]
         public void Full_Integration_New_Parser()
@@ -55,11 +55,11 @@ namespace CommBankStatementPDF.Tests
 
                     foreach (var p in prototypes)
                     {
+                        Trace.WriteLine(p);
+
                         Assert.That(p.Biller, Is.Not.Empty);
                         Assert.That(p.AccountType, Is.Not.EqualTo(AccountType.Unknown));
-
-                        //sb.AppendLine(p.ToString());
-                        Trace.WriteLine(p);
+                        Assert.That(p.Amount, Is.Not.Zero);
                     }
                 }
             }
