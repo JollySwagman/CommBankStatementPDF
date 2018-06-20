@@ -19,7 +19,7 @@ namespace CommBankStatementPDF.Tests
         {
             var pages = IOHelper.ReadPdfFileToPages(testFilename2);
 
-            var parser = new StatementParser(testFilename2, StatementParser.AccountType.StreamLine);
+            var parser = new StatementParser(testFilename2, AccountType.StreamLine);
 
             //parser.Parser2(pages);
 
@@ -35,7 +35,7 @@ namespace CommBankStatementPDF.Tests
 
             //parser.Source = src;
 
-            //var trans = new Transaction(lines, 2010, StatementParser.AccountType.StreamLine);
+            //var trans = new Transaction(lines, 2010, AccountType.StreamLine);
             //Trace.WriteLine(trans);
             //Assert.That(trans.Amount, Is.EqualTo(10));
         }

@@ -6,17 +6,18 @@ using System.Text;
 
 namespace CommBankStatementPDF.Business
 {
+    public enum AccountType
+    {
+        Unknown,
+        VISA,
+        StreamLine
+    }
+
     /// <summary>
     /// Manage the process of converting PDF to a collection of Transactions
     /// </summary>
     public class StatementParser
     {
-        public enum AccountType
-        {
-            Unknown,
-            VISA,
-            StreamLine
-        }
 
         public int Year { get; private set; }
         public List<Transaction> Transactions { get; set; }
@@ -73,7 +74,7 @@ namespace CommBankStatementPDF.Business
 
                 if (i < lines.Count - 2)
                 {
-                    newTrans = new Transaction(new List<string>() { lines[i], lines[i + 1], lines[i + 2] }, Year, this.Type);
+                    //newTrans = new Transaction(new List<string>() { lines[i], lines[i + 1], lines[i + 2] }, Year, this.Type);
                 }
                 else
                 {

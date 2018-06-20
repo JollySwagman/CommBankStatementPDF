@@ -12,7 +12,6 @@ namespace CommBankStatementPDF.Business
             var newProto = new Prototype();
             var lineCount = 0;
 
-
             for (int i = 0; i < lines.Count; i++)
             {
                 //                Trace.WriteLine("   >>> " + line);
@@ -69,14 +68,12 @@ namespace CommBankStatementPDF.Business
                         }
                     }
                 }
-
             }
-
 
             return result;
         }
 
-        public List<Prototype> GetPrototypesFromLines(List<string> lines)
+        public List<Prototype> GetPrototypesFromLines(List<string> lines, int year, AccountType accountType, string filename)
         {
             var result = new List<Prototype>();
             var newProto = new Prototype();
@@ -88,7 +85,7 @@ namespace CommBankStatementPDF.Business
 
                 var item = LineParser.TrimEndBalance(line);
 
-                var date = Transaction.GetDateFromLine(item, 2000);
+                var date = Transaction.GetDateFromLine(item, year);
                 if (date.HasValue)
                 {
                     // save the previous and start a new one
@@ -97,7 +94,7 @@ namespace CommBankStatementPDF.Business
                         result.Add(newProto);
                     }
                     lineCount = 0;
-                    newProto = new Prototype() { Date = date.Value, Line0 = item };
+                    newProto = new Prototype() { AccountType = accountType, Date = date.Value, Line0 = item, SourceFile= filename };
 
                     var amt = LineParser.GetAmountFromLine(item);
                     if (amt.HasValue)

@@ -11,6 +11,19 @@ namespace CommBankStatementPDF.Business
         public string Line1 { get; set; }
         public string Line2 { get; set; }
         public string Line3 { get; set; }
+        public AccountType AccountType { get; set; }
+        public string SourceFile { get; set; }
+
+        public string Source { get; set; }
+
+        public string Biller
+        {
+            get
+            {
+                return (this.Line0.Substring(7) + " ").Trim() + (this.Line1 + " ").Trim() + (this.Line2 + " ").Trim() + (this.Line3 + " ").Trim();
+            }
+            private set { }
+        }
 
         public override string ToString()
         {
@@ -18,6 +31,9 @@ namespace CommBankStatementPDF.Business
 
             result.AppendLine("[" + this.GetType().FullName + "]");
             result.AppendLine("Date: " + this.Date);
+            result.AppendLine("AccountType: " + this.AccountType);
+            result.AppendLine("SourceFile: " + this.SourceFile);
+            result.AppendLine("Biller: " + this.Biller);
             result.AppendLine("Line0: " + this.Line0);
             result.AppendLine("Line1: " + this.Line1);
             result.AppendLine("Line3: " + this.Line3);

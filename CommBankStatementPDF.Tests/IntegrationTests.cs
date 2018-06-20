@@ -12,12 +12,12 @@ namespace CommBankStatementPDF.Tests
     [TestFixture]
     public class IntegrationTests
     {
-        [Test]
+        [Test, Ignore("obs")]
         public void Full_Integration()
         {
             Business.Data.DeleteAll();
 
-            foreach (var account in new StatementParser.AccountType[] { StatementParser.AccountType.StreamLine, StatementParser.AccountType.VISA })
+            foreach (var account in new AccountType[] { AccountType.StreamLine, AccountType.VISA })
             {
                 foreach (var item in Directory.GetFiles(Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\All\" + account.ToString()), "*.pdf"))
                 {
@@ -39,27 +39,34 @@ namespace CommBankStatementPDF.Tests
         [Test]
         public void Full_Integration_New_Parser()
         {
-            Trace.WriteLine("Full_Integration_New_Parser()");
+            Business.Data.DeleteAll();
 
             var sb = new StringBuilder();
 
-            var trans = new List<Transaction>();
+            var trans = new List<Prototype>();
 
-            foreach (var account in new StatementParser.AccountType[] { StatementParser.AccountType.StreamLine, StatementParser.AccountType.VISA })
+            foreach (var account in new AccountType[] { AccountType.StreamLine, AccountType.VISA })
             {
                 foreach (var item in Directory.GetFiles(Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\All\" + account.ToString()), "*.pdf"))
                 {
                     var prototypes = IOHelper.GetPrototypes(item);
 
-                    //var t = new Transaction()
+                    trans.AddRange(prototypes);
 
                     foreach (var p in prototypes)
                     {
+                        Assert.That(p.Biller, Is.Not.Empty);
+                        Assert.That(p.AccountType, Is.Not.EqualTo(AccountType.Unknown));
+
                         //sb.AppendLine(p.ToString());
                         Trace.WriteLine(p);
                     }
                 }
             }
+
+            Trace.WriteLine("FOUND: " + trans.Count);
+
+            Business.Data.Save(trans);
 
             //File.WriteAllText(Path.Combine(TestContext.CurrentContext.TestDirectory, "log.txt"), sb.ToString());
         }

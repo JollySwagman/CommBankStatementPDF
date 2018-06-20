@@ -21,7 +21,7 @@ namespace CommBankStatementPDF.Tests
         {
             foreach (var item in Directory.GetFiles(Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\All\Streamline"), "*.pdf"))
             {
-                var parser = new StatementParser(item, StatementParser.AccountType.StreamLine);
+                var parser = new StatementParser(item, AccountType.StreamLine);
 
                 var file = new FileInfo(item);
                 var expectedYear = Convert.ToInt32(file.Name.Substring(9, 4));
@@ -45,7 +45,7 @@ namespace CommBankStatementPDF.Tests
         {
             //var contents = IOHelper.ReadPdfFile(testFilename2);
 
-            var parser = new StatementParser(testFilename2, StatementParser.AccountType.StreamLine);
+            var parser = new StatementParser(testFilename2, AccountType.StreamLine);
             parser.ReadFile();
             //contents = parser.GetTransactions(contents);
 
@@ -55,11 +55,11 @@ namespace CommBankStatementPDF.Tests
         [Test]
         public void ParseToTransaction_New_Format()
         {
-            var parser = new StatementParser(testFilename2, StatementParser.AccountType.StreamLine);
+            var parser = new StatementParser(testFilename2, AccountType.StreamLine);
             parser.ReadFile();
 
             var trans = "07 Apr Bunnings 370000 Alexandria 160.00";
-            var result = new Transaction(trans, 2001, StatementParser.AccountType.StreamLine);
+            var result = new Transaction(trans, 2001, AccountType.StreamLine);
 
             Assert.That(result, Is.Not.Null);
 
@@ -74,7 +74,7 @@ namespace CommBankStatementPDF.Tests
         [Test]
         public void ParseToTransaction_Old_Format()
         {
-            var parser = new StatementParser(testFilenameOldFormat, StatementParser.AccountType.StreamLine);
+            var parser = new StatementParser(testFilenameOldFormat, AccountType.StreamLine);
             Trace.WriteLine(parser.Source);
 
             parser.ReadFile();
@@ -87,7 +87,7 @@ namespace CommBankStatementPDF.Tests
             foreach (var item in parser.Transactions)
             {
                 Assert.That(item.Date.Year > 1900);
-                Assert.That(item.Type, Is.EqualTo(StatementParser.AccountType.StreamLine));
+                Assert.That(item.Type, Is.EqualTo(AccountType.StreamLine));
                 //Trace.WriteLine(item);
             }
         }
@@ -117,7 +117,7 @@ namespace CommBankStatementPDF.Tests
         {
             var lines = new List<string>(new string[] { @"15 Jun NETBANK TFR", @"IRM Pay 03,607.00", @"15 Jun COMMONWEALTH BNK" });
 
-            var trans = new Transaction(lines, 2010, StatementParser.AccountType.StreamLine);
+            var trans = new Transaction(lines, 2010, AccountType.StreamLine);
 
             Trace.WriteLine(trans);
 
@@ -131,7 +131,7 @@ namespace CommBankStatementPDF.Tests
         {
             var lines = new List<string>(new string[] { @"10 Jun O'DRAWING APPR'L FEE 10.00 ) $714.12 CR", @"15 Jun NETBANK TFR", @"IRM Pay 03,607.00" });
 
-            var trans = new Transaction(lines, 2010, StatementParser.AccountType.StreamLine);
+            var trans = new Transaction(lines, 2010, AccountType.StreamLine);
 
             Trace.WriteLine(trans);
 

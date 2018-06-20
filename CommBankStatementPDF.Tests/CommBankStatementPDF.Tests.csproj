@@ -57,6 +57,7 @@
     <Compile Include="BasicTestsVISA.cs" />
     <Compile Include="DataTests.cs" />
     <Compile Include="IntegrationTests.cs" />
+    <Compile Include="IOHelperTests.cs" />
     <Compile Include="ParserTests.cs" />
     <Compile Include="BasicTestsStreamline.cs" />
     <Compile Include="BasicTestsTransaction.cs" />
