@@ -26,6 +26,13 @@ namespace CommBankStatementPDF.Tests
         [Test]
         public void GetAmountFromLine_()
         {
+
+            //||||
+
+            Assert.That(LineParser.GetAmountFromLine("Wdl ATM ANZ 115 PITT ST BRANCH SYDNEY 330.00 $ $4,650.44 CR"), Is.EqualTo(330));
+
+            //Assert.That(LineParser.StripBalance("10 Feb Payment Received, Thank You AU 100.00-"), Is.EqualTo("10 Feb Payment Received, Thank You AU 100.00-"));
+
             Assert.That(LineParser.GetAmountFromLine("10 Feb Payment Received, Thank You AU 100.00-"), Is.EqualTo(-100));
             Assert.That(LineParser.GetAmountFromLine("14 Feb Bunnings 370000 AlexandriaAU 157.25Transactions"), Is.Not.Null);
 

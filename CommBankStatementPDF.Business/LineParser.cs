@@ -63,14 +63,25 @@ namespace CommBankStatementPDF.Business
         {
             var result = "";
 
-            var pattern = @"\$ \$([-,0-9\.]+) DR$";
+            result = line;
 
-            var match = new Regex(pattern, RegexOptions.IgnoreCase).Match(line.Trim());
+            var pattern1 = @"\$ \$([-,0-9\.]+) DR$";
+
+
+            var match = new Regex(pattern1, RegexOptions.IgnoreCase).Match(line.Trim());
 
             if (match.Success)
             {
                 //result = decimal.Parse(match.Groups[1].Value);
                 result = line.Substring(0, match.Index).Trim();
+            }
+
+            var pattern2 = @"\$ \$([-,0-9\.]+) CR$";
+            var match2 = new Regex(pattern2, RegexOptions.IgnoreCase).Match(line.Trim());
+            if (match2.Success)
+            {
+                //result = decimal.Parse(match.Groups[1].Value);
+                result = line.Substring(0, match2.Index).Trim();
             }
 
             return result;

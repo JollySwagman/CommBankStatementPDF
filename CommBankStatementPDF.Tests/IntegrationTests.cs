@@ -38,7 +38,7 @@ namespace CommBankStatementPDF.Tests
 
                         Assert.That(p.Biller, Is.Not.Empty);
                         Assert.That(p.AccountType, Is.Not.EqualTo(AccountType.Unknown));
-                        //Assert.That(p.Amount, Is.Not.Zero);
+                        Assert.That(p.Amount, Is.Not.Zero);
                     }
                 }
             }
