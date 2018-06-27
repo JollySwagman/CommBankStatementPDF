@@ -44,10 +44,13 @@ namespace CommBankStatementPDF.Business
             return result;
         }
 
-        public static List<Prototype> GetPrototypes(string filename)
+        public int Year { get; set; }
+        public AccountType AccountType { get; set; }
+
+        public List<Prototype> GetPrototypes(string filename)
         {
-            var text = ReadPdfFileToPages(filename);
-            var lines = GetLinesFromPages(text);
+            var pages = ReadPdfFileToPages(filename);
+            var lines = GetLinesFromPages(pages);
 
             var parser = new NewParser();
 
@@ -85,10 +88,15 @@ namespace CommBankStatementPDF.Business
 
         public static List<string> GetLinesFromPages(List<string> pages)
         {
+            return GetLinesFromPages(pages, false);
+        }
+
+        public static List<string> GetLinesFromPages(List<string> pages, bool processAll)
+        {
             var result = new List<string>();
             var sb = new StringBuilder();
 
-            var foundBeginning = false;
+            var foundBeginning = processAll;
 
             foreach (var line in pages)
             {
@@ -104,6 +112,9 @@ namespace CommBankStatementPDF.Business
 
                 if ((foundBeginning) && LineParser.IsCrap(line) == false)
                 {
+                    if (StreamLine.IsBracketLine(line))
+                    {
+                    }
                     sb.AppendLine(line);
                     result.Add(line);
                 }

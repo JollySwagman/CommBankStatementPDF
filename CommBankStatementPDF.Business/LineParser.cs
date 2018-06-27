@@ -32,7 +32,6 @@ namespace CommBankStatementPDF.Business
             return result;
         }
 
-
         public static bool IsCrap(string line)
         {
             // eg 23 May 2015- 23 Jun 2015
@@ -55,9 +54,34 @@ namespace CommBankStatementPDF.Business
             return result;
         }
 
+        /// <summary>
+        /// Balance is often appended, we need to remove it
+        /// </summary>
+        /// <param name="line"></param>
+        /// <returns></returns>
+        public static string StripBalance(string line)
+        {
+            var result = "";
+
+            var pattern = @"\$ \$([-,0-9\.]+) DR$";
+
+            var match = new Regex(pattern, RegexOptions.IgnoreCase).Match(line.Trim());
+
+            if (match.Success)
+            {
+                //result = decimal.Parse(match.Groups[1].Value);
+                result = line.Substring(0, match.Index).Trim();
+            }
+
+            return result;
+        }
+
         public static decimal? GetAmountFromLine(string line)
         {
             decimal? result = null;
+
+            // trim balance so we can get the transaction amount
+            line = StripBalance(line);
 
             line = TrimEndAlpha(line);
 
@@ -77,7 +101,6 @@ namespace CommBankStatementPDF.Business
             {
                 result = decimal.Parse(match.Groups[1].Value);
             }
-
 
             if (result == null)
             {
@@ -102,7 +125,6 @@ namespace CommBankStatementPDF.Business
 
             return result;
         }
-
 
         //
 
@@ -179,8 +201,6 @@ namespace CommBankStatementPDF.Business
 
             return result;
         }
-
-
 
         public static bool IsNumeric(string character)
         {

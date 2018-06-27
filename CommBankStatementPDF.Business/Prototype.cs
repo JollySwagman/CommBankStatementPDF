@@ -16,11 +16,16 @@ namespace CommBankStatementPDF.Business
 
         public string Source { get; set; }
 
+        public bool IsValid()
+        {
+            return string.IsNullOrEmpty(this.Line0) == false;
+        }
+
         public string Biller
         {
             get
             {
-                return (this.Line0.Substring(7) + " ").Trim() + (this.Line1 + " ").Trim() + (this.Line2 + " ").Trim() + (this.Line3 + " ").Trim();
+                return (this.Line0.Substring(7) + "|").Trim() + (this.Line1 + "|").Trim() + (this.Line2 + "|").Trim() + (this.Line3 + "|").Trim();
             }
             private set { }
         }

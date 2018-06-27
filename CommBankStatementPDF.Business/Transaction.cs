@@ -1,11 +1,12 @@
-﻿using System;
+﻿using CommBankStatementPDF.Business;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace CommBankStatementPDF.Business
+namespace OLD.CommBankStatementPDF.Business
 {
     public class Transaction
     {

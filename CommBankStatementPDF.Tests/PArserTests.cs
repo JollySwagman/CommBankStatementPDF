@@ -43,6 +43,8 @@ namespace CommBankStatementPDF.Tests
         [Test]
         public void ReadPdfFileToPages_a()
         {
+            var IOHelper = new IOHelper();
+
             var result = IOHelper.GetPrototypes(testFilename2);
 
             foreach (var item in result)
@@ -69,19 +71,6 @@ namespace CommBankStatementPDF.Tests
         //}
 
         //
-
-        [Test]
-        public void GetAmountFromLine_()
-        {
-            //20 Nov Transfer from xx4909 CommBank app $500.00
-
-            var x = LineParser.GetAmountFromLine(@"20 Nov Transfer from xx4909 CommBank app $500.00");
-
-            Assert.That(x.HasValue);
-            Assert.That(x.Value, Is.EqualTo(500));
-
-            Assert.That(LineParser.GetAmountFromLine(@"to June 30, 2011 is 0.16 0").GetValueOrDefault(), Is.EqualTo(.16));
-        }
 
         [Test]
         public void TrimEndBalance_()

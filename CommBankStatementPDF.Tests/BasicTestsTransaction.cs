@@ -28,6 +28,15 @@ namespace CommBankStatementPDF.Tests
         {
             Assert.That(LineParser.GetAmountFromLine("10 Feb Payment Received, Thank You AU 100.00-"), Is.EqualTo(-100));
             Assert.That(LineParser.GetAmountFromLine("14 Feb Bunnings 370000 AlexandriaAU 157.25Transactions"), Is.Not.Null);
+
+            //20 Nov Transfer from xx4909 CommBank app $500.00
+
+            var x = LineParser.GetAmountFromLine(@"20 Nov Transfer from xx4909 CommBank app $500.00");
+
+            Assert.That(x.HasValue);
+            Assert.That(x.Value, Is.EqualTo(500));
+
+            Assert.That(LineParser.GetAmountFromLine(@"to June 30, 2011 is 0.16 0").GetValueOrDefault(), Is.EqualTo(.16));
         }
 
         //[Test]
