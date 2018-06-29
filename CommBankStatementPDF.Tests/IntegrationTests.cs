@@ -13,11 +13,10 @@ namespace CommBankStatementPDF.Tests
     public class IntegrationTests
     {
 
-        [Test]
+        [Test, Ignore("")]
         public void Full_Integration_New_Parser()
         {
-            Business.Data.DeleteAll();
-
+            
             var sb = new StringBuilder();
 
             var trans = new List<Prototype>();
@@ -45,7 +44,9 @@ namespace CommBankStatementPDF.Tests
 
             Trace.WriteLine("FOUND: " + trans.Count);
 
-            Business.Data.Save(trans);
+            //Business.Data.DeleteAll();
+            //Business.Data.Save(trans);
+
 
             //File.WriteAllText(Path.Combine(TestContext.CurrentContext.TestDirectory, "log.txt"), sb.ToString());
         }

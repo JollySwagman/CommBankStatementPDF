@@ -11,7 +11,7 @@ namespace CommBankStatementPDF.Business
         public const string END_TRANSACTIONS = "CLOSING BALANCE";
 
 
-        public bool IsEndOfPage(string line)
+        public bool xIsEndOfPage(string line)
         {
 
             // eg 23 May 2015- 23 Jun 2015
