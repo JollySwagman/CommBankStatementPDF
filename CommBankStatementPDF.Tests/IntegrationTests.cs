@@ -1,6 +1,5 @@
 ﻿using CommBankStatementPDF.Business;
 using NUnit.Framework;
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,11 +11,9 @@ namespace CommBankStatementPDF.Tests
     [TestFixture]
     public class IntegrationTests
     {
-
-        [Test, Ignore("")]
+        [Test]
         public void Full_Integration_New_Parser()
         {
-            
             var sb = new StringBuilder();
 
             var trans = new List<Prototype>();
@@ -46,7 +43,6 @@ namespace CommBankStatementPDF.Tests
 
             //Business.Data.DeleteAll();
             //Business.Data.Save(trans);
-
 
             //File.WriteAllText(Path.Combine(TestContext.CurrentContext.TestDirectory, "log.txt"), sb.ToString());
         }

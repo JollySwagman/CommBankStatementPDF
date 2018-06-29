@@ -1,11 +1,6 @@
-﻿using CommBankStatementPDF.Business;
-using NUnit.Framework;
-
+﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Text;
 
 namespace CommBankStatementPDF.Tests
 {
@@ -177,6 +172,5 @@ namespace CommBankStatementPDF.Tests
 
         //    SaveTransactions(parser.Transactions);
         //}
-
     }
 }

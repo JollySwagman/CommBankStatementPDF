@@ -67,7 +67,6 @@ namespace CommBankStatementPDF.Business
 
             var pattern1 = @"\$ \$([-,0-9\.]+) DR$";
 
-
             var match = new Regex(pattern1, RegexOptions.IgnoreCase).Match(line.Trim());
 
             if (match.Success)
@@ -170,10 +169,10 @@ namespace CommBankStatementPDF.Business
         {
             string result = line;
 
-            if (line.Contains("CREDIT INTEREST"))
-            {
-                var o = 0;
-            }
+            //if (line.Contains("CREDIT INTEREST"))
+            //{
+            //    var o = 0;
+            //}
 
             var pattern = @" [\(|\)] \$[-,0-9\.]+ [C|D]R";// @" \( \$[-,0-9\.]+ [C|D]R";
 

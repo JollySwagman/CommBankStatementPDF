@@ -55,7 +55,11 @@ namespace CommBankStatementPDF.Business
             var parser = new NewParser();
 
             var year = GetYear(filename);
+
             var accountType = GetAccountType(filename);
+
+            this.Year = year;
+            this.AccountType = accountType;
 
             //var result = parser.GetPrototypesFromLines(new Queue<string>(lines));
             var result = parser.GetPrototypesFromLines(lines, year, accountType, filename);

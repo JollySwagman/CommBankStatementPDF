@@ -7,13 +7,11 @@ using System.Text;
 
 namespace OLD.CommBankStatementPDF.Business
 {
-
     /// <summary>
     /// Manage the process of converting PDF to a collection of Transactions
     /// </summary>
     public class StatementParser
     {
-
         public int Year { get; private set; }
         public List<Transaction> Transactions { get; set; }
         public List<string> Lines { get; set; }
@@ -62,11 +60,6 @@ namespace OLD.CommBankStatementPDF.Business
             {
                 Transaction newTrans = null;
 
-                if (lines[i].Contains("373578"))
-                {
-                    var t = 0;
-                }
-
                 if (i < lines.Count - 2)
                 {
                     //newTrans = new Transaction(new List<string>() { lines[i], lines[i + 1], lines[i + 2] }, Year, this.Type);
@@ -78,11 +71,6 @@ namespace OLD.CommBankStatementPDF.Business
 
                 if (newTrans.ParseSuccess)
                 {
-                    if (newTrans.Amount > 3000)
-                    {
-                        var t = 0;
-                    }
-
                     newTrans.SourceFile = this.Filename.Name;
 
                     this.Transactions.Add(newTrans);
@@ -104,4 +92,3 @@ namespace OLD.CommBankStatementPDF.Business
         }
     }
 }
-

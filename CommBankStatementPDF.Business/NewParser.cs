@@ -75,7 +75,6 @@ namespace CommBankStatementPDF.Business
                         }
                     }
                 }
-
             }
 
             // HACK

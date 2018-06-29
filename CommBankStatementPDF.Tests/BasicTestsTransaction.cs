@@ -26,7 +26,6 @@ namespace CommBankStatementPDF.Tests
         [Test]
         public void GetAmountFromLine_()
         {
-
             //||||
 
             Assert.That(LineParser.GetAmountFromLine("Wdl ATM ANZ 115 PITT ST BRANCH SYDNEY 330.00 $ $4,650.44 CR"), Is.EqualTo(330));

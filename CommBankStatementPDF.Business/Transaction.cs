@@ -20,7 +20,7 @@ namespace OLD.CommBankStatementPDF.Business
         public bool ParseSuccess { get; private set; }
         public AccountType Type { get; private set; }
 
-        private List<string> months = new List<string> { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+        private readonly List<string> months = new List<string> { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 
         public Transaction(string line, int year, AccountType accountType) : this(new List<string>() { line }, year, accountType)
         {
@@ -65,12 +65,6 @@ namespace OLD.CommBankStatementPDF.Business
 
                     var lineDate = GetDateFromLine(line, year);
 
-                    //30/03/2015
-                    if (lineDate.HasValue && lineDate.Value.Equals(new DateTime(2015, 5, 29)))
-                    {
-                        var o = 0;
-                    }
-
                     if (lineDate.HasValue)
                     {
                         Trace.WriteLine(string.Format("NEW TRANS: {0}", lines[0]));
@@ -79,7 +73,6 @@ namespace OLD.CommBankStatementPDF.Business
 
                         if (StreamLine.IsBracketLine(line))
                         {
-                            var d = 0;
                             var line2 = line.Substring(0, line.IndexOf(')'));
                             this.Amount = LineParser.GetAmountFromLine(line2).GetValueOrDefault();
                             this.Biller = line;
