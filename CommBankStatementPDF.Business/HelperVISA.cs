@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace CommBankStatementPDF.Business
 {
-    public class HelperStreamlinex
+    public class HelperStreamline
     {
         public const string PAGE_HEADER = "Date Transaction Debit Credit Balance";
         public const string BEGIN_TRANSACTIONS = "Date Transaction Details Amount (A$)";

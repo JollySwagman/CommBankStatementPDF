@@ -25,7 +25,8 @@ namespace CommBankStatementPDF.Business
         {
             get
             {
-                return (this.Line0.Substring(7) + "|").Trim() + (this.Line1 + "|").Trim() + (this.Line2 + "|").Trim() + (this.Line3 + "|").Trim();
+                //return (this.Line0.Substring(7) + "|").Trim() + (this.Line1 + "|").Trim() + (this.Line2 + "|").Trim() + (this.Line3 + "|").Trim();
+                return (this.Line0);
             }
             private set { }
         }
@@ -45,7 +46,7 @@ namespace CommBankStatementPDF.Business
             result.Append("Amount: " + this.Amount);
             if (this.Amount == 0)
             {
-                result.Append(" !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                result.Append(" AMOUNT IS ZERO!");
             }
             result.AppendLine("");
 

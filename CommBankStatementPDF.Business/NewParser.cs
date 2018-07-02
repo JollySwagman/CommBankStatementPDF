@@ -6,6 +6,8 @@ namespace CommBankStatementPDF.Business
 {
     public class NewParser
     {
+        public bool Verbose { get; set; }
+        
         public List<Prototype> GetPrototypesFromLines(List<string> lines, int year, AccountType accountType, string filename)
         {
             var result = new List<Prototype>();
@@ -14,7 +16,7 @@ namespace CommBankStatementPDF.Business
 
             foreach (var line in lines)
             {
-                Trace.WriteLine("   >>> " + line);
+                Trace.WriteLineIf(this.Verbose,"   >>> " + line);
 
                 var item = LineParser.TrimEndBalance(line);
 

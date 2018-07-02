@@ -5,13 +5,13 @@ cls
 cls
 
 
-REM "..\..\..\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe" -target:"..\..\..\packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe" -filter:"+[CommBankStatementPDF.Business]CommBankStatementPDF.Business*" -targetargs:"CommBankStatementPDF.Tests.dll " -output:".\CodeCoverage\_CodeCoverageResult.xml"
+REM "..\..\..\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe" -target:"..\..\..\packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe" -filter:"+[CommBankStatementPDF.Business]CommBankStatementPDF.Business*" -targetargs:"CommBankStatementPDF.Tests.dll --where:"cat != IntegrationTests"" -output:".\CodeCoverage\_CodeCoverageResult.xml"
 
 "..\..\..\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe" -target:"..\..\..\packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe" -filter:"+[CommBankStatementPDF.Business]CommBankStatementPDF.Business.*" -targetargs:"CommBankStatementPDF.Tests.dll " -output:"_CodeCoverageResult.xml" -register:user
 
 
 rem -filter:"+[ProjToTest]ProjToTest*" -excludebyattribute:"System.CodeDom.Compiler.GeneratedCodeAttribute" -register:user -output:"_CodeCoverageResult.xml"
-
+rem --where:"cat != blah"
 
 ".\ReportGenerator_3.1.2.0\ReportGenerator.exe" "-reports:_CodeCoverageResult.xml" "-targetdir:Report"
 

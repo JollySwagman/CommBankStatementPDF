@@ -8,10 +8,10 @@ using System.Text;
 
 namespace CommBankStatementPDF.Tests
 {
-    [TestFixture]
+    [TestFixture, Category("IntegrationTests")]
     public class IntegrationTests
     {
-        [Test]
+        //[Test]
         public void Full_Integration_New_Parser()
         {
             var sb = new StringBuilder();
@@ -41,8 +41,8 @@ namespace CommBankStatementPDF.Tests
 
             Trace.WriteLine("FOUND: " + trans.Count);
 
-            //Business.Data.DeleteAll();
-            //Business.Data.Save(trans);
+            Business.Data.DeleteAll();
+            Business.Data.Save(trans);
 
             //File.WriteAllText(Path.Combine(TestContext.CurrentContext.TestDirectory, "log.txt"), sb.ToString());
         }
