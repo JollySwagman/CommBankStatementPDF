@@ -28,6 +28,18 @@ namespace CommBankStatementPDF.Tests
         }
 
         [Test]
+        public void StripLeadingDate_()
+        {
+            var IOHelper = new IOHelper();
+
+            var result = LineParser.StripLeadingDate("14 Apr Transfer to xx1119 CommBank app 50.00 ( $9,279.46 DR");
+
+            Trace.WriteLine(result);
+
+            Assert.That(result, Is.EqualTo("Transfer to xx1119 CommBank app 50.00 ( $9,279.46 DR"));
+        }
+
+        [Test]
         public void TrimEndBalance_()
         {
             //Assert.That(LineParser.TrimEndBalance("14 Apr"), Is.EqualTo("14 Apr"));

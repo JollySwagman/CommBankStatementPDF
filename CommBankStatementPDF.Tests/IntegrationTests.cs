@@ -11,7 +11,7 @@ namespace CommBankStatementPDF.Tests
     [TestFixture, Category("IntegrationTests")]
     public class IntegrationTests
     {
-        //[Test]
+        [Test]
         public void Full_Integration_New_Parser()
         {
             var sb = new StringBuilder();

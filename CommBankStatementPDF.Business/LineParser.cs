@@ -32,6 +32,21 @@ namespace CommBankStatementPDF.Business
             return result;
         }
 
+        public static string StripLeadingDate(string line)
+        {
+            string result = line;
+            Regex r = new Regex(@"^\d{1,2} [A-z]{3} ", RegexOptions.IgnoreCase);
+
+            if (string.IsNullOrWhiteSpace(line) == false && line.Length >= MIN_LINE_LENGTH)
+            {
+                //Match m = r.Match(line.Substring(0, MIN_LINE_LENGTH));
+                Match m = r.Match(line);
+                result = line.Substring(m.Length);
+            }
+
+            return result;
+        }
+
         public static bool IsCrap(string line)
         {
             // eg 23 May 2015- 23 Jun 2015

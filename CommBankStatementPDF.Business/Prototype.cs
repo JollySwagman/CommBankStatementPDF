@@ -14,7 +14,7 @@ namespace CommBankStatementPDF.Business
         public AccountType AccountType { get; set; }
         public string SourceFile { get; set; }
 
-        public string Source { get; set; }
+        //public string sSource { get; set; }
 
         public bool IsValid()
         {
@@ -26,7 +26,7 @@ namespace CommBankStatementPDF.Business
             get
             {
                 //return (this.Line0.Substring(7) + "|").Trim() + (this.Line1 + "|").Trim() + (this.Line2 + "|").Trim() + (this.Line3 + "|").Trim();
-                return (this.Line0);
+                return (LineParser.StripLeadingDate(this.Line0));
             }
             private set { }
         }

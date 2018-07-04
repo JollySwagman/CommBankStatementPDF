@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicTestsVISA.cs" />
+    <Compile Include="PrototypeTests.cs" />
     <Compile Include="DataTests.cs" />
     <Compile Include="IntegrationTests.cs" />
     <Compile Include="IOHelperTests.cs" />
