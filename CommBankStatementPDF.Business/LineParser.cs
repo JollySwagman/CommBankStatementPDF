@@ -76,26 +76,27 @@ namespace CommBankStatementPDF.Business
         /// <returns></returns>
         public static string StripBalance(string line)
         {
-            var result = "";
+            var result = line;
 
-            result = line;
-
-            var pattern1 = @"\$ \$([-,0-9\.]+) DR$";
-
-            var match = new Regex(pattern1, RegexOptions.IgnoreCase).Match(line.Trim());
-
-            if (match.Success)
+            if (string.IsNullOrEmpty(line) == false)
             {
-                //result = decimal.Parse(match.Groups[1].Value);
-                result = line.Substring(0, match.Index).Trim();
-            }
+                var pattern1 = @"\$ \$([-,0-9\.]+) DR$";
 
-            var pattern2 = @"\$ \$([-,0-9\.]+) CR$";
-            var match2 = new Regex(pattern2, RegexOptions.IgnoreCase).Match(line.Trim());
-            if (match2.Success)
-            {
-                //result = decimal.Parse(match.Groups[1].Value);
-                result = line.Substring(0, match2.Index).Trim();
+                var match = new Regex(pattern1, RegexOptions.IgnoreCase).Match(line.Trim());
+
+                if (match.Success)
+                {
+                    //result = decimal.Parse(match.Groups[1].Value);
+                    result = line.Substring(0, match.Index).Trim();
+                }
+
+                var pattern2 = @"\$ \$([-,0-9\.]+) CR$";
+                var match2 = new Regex(pattern2, RegexOptions.IgnoreCase).Match(line.Trim());
+                if (match2.Success)
+                {
+                    //result = decimal.Parse(match.Groups[1].Value);
+                    result = line.Substring(0, match2.Index).Trim();
+                }
             }
 
             return result;
@@ -104,32 +105,34 @@ namespace CommBankStatementPDF.Business
         public static decimal? GetAmountFromLine(string line)
         {
             decimal? result = null;
-
-            // trim balance so we can get the transaction amount
-            line = StripBalance(line);
-
-            line = TrimEndAlpha(line);
-
-            var num = line.Substring(line.LastIndexOf(' ') + 1);
-
-            if (num.Contains(".") && decimal.TryParse(num, out decimal number))
+            if (string.IsNullOrEmpty(line) == false)
             {
-                result = number;
-            }
+                // trim balance so we can get the transaction amount
+                line = StripBalance(line);
 
-            // temp
-            var pattern = @" \$([-,0-9\.]+)";
+                line = TrimEndAlpha(line);
 
-            var match = new Regex(pattern, RegexOptions.IgnoreCase).Match(line);
+                var num = line.Substring(line.LastIndexOf(' ') + 1);
 
-            if (match.Success)
-            {
-                result = decimal.Parse(match.Groups[1].Value);
-            }
+                if (num.Contains(".") && decimal.TryParse(num, out decimal number))
+                {
+                    result = number;
+                }
 
-            if (result == null)
-            {
-                result = GetAmountFromLineInterest(line);
+                // temp
+                var pattern = @" \$([-,0-9\.]+)";
+
+                var match = new Regex(pattern, RegexOptions.IgnoreCase).Match(line);
+
+                if (match.Success)
+                {
+                    result = decimal.Parse(match.Groups[1].Value);
+                }
+
+                if (result == null)
+                {
+                    result = GetAmountFromLineInterest(line);
+                }
             }
 
             return result;

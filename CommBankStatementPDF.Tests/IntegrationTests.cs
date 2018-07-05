@@ -30,6 +30,7 @@ namespace CommBankStatementPDF.Tests
 
                     foreach (var p in prototypes)
                     {
+                        p.GetAmount();
                         Trace.WriteLine(p);
 
                         Assert.That(p.Biller, Is.Not.Empty);
@@ -41,8 +42,10 @@ namespace CommBankStatementPDF.Tests
 
             Trace.WriteLine("FOUND: " + trans.Count);
 
+            Trace.WriteLine("Writing to DB");
             Business.Data.DeleteAll();
             Business.Data.Save(trans);
+            Trace.WriteLine("Finished writing to DB");
 
             //File.WriteAllText(Path.Combine(TestContext.CurrentContext.TestDirectory, "log.txt"), sb.ToString());
         }

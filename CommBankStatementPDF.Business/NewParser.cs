@@ -7,9 +7,9 @@ namespace CommBankStatementPDF.Business
     public class NewParser
     {
         public bool Verbose { get; set; }
-        
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="lines"></param>
         /// <param name="year"></param>
@@ -24,7 +24,7 @@ namespace CommBankStatementPDF.Business
 
             foreach (var line in lines)
             {
-                Trace.WriteLineIf(this.Verbose,"   >>> " + line);
+                Trace.WriteLineIf(this.Verbose, "   >>> " + line);
 
                 var item = LineParser.TrimEndBalance(line);
 
@@ -38,51 +38,27 @@ namespace CommBankStatementPDF.Business
                     }
                     lineCount = 0;
                     newProto = new Prototype() { AccountType = accountType, Date = date.Value, Line0 = item, SourceFile = filename };
-
-                    var amt = LineParser.GetAmountFromLine(item);
-                    if (amt.HasValue)
-                    {
-                        newProto.Amount = amt.Value;
-                    }
                 }
                 else
                 {
+                    // Add subsequent lines that belong to this transaction
                     lineCount++;
                     if (lineCount == 0)
                     {
+                        // should never end up here..
                         newProto.Line0 = item;
-                        var amt = LineParser.GetAmountFromLine(item);
-                        if (amt.HasValue)
-                        {
-                            newProto.Amount = amt.Value;
-                        }
                     }
                     if (lineCount == 1)
                     {
                         newProto.Line1 = item;
-                        var amt = LineParser.GetAmountFromLine(item);
-                        if (amt.HasValue)
-                        {
-                            newProto.Amount = amt.Value;
-                        }
                     }
                     if (lineCount == 2)
                     {
                         newProto.Line2 = item;
-                        var amt = LineParser.GetAmountFromLine(item);
-                        if (amt.HasValue)
-                        {
-                            newProto.Amount = amt.Value;
-                        }
                     }
                     if (lineCount == 3)
                     {
                         newProto.Line3 = item;
-                        var amt = LineParser.GetAmountFromLine(item);
-                        if (amt.HasValue)
-                        {
-                            newProto.Amount = amt.Value;
-                        }
                     }
                 }
             }

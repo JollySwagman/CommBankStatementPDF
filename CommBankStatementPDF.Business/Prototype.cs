@@ -6,7 +6,15 @@ namespace CommBankStatementPDF.Business
     public class Prototype
     {
         public DateTime Date { get; set; }
-        public decimal Amount { get; set; }
+
+        public decimal? Amount
+        {
+            get
+            {
+                return GetAmount();
+            }
+        }
+
         public string Line0 { get; set; }
         public string Line1 { get; set; }
         public string Line2 { get; set; }
@@ -25,10 +33,32 @@ namespace CommBankStatementPDF.Business
         {
             get
             {
-                //return (this.Line0.Substring(7) + "|").Trim() + (this.Line1 + "|").Trim() + (this.Line2 + "|").Trim() + (this.Line3 + "|").Trim();
                 return (LineParser.StripLeadingDate(this.Line0));
             }
             private set { }
+        }
+
+        public decimal? GetAmount()
+        {
+            decimal? result = 0M;
+
+            var lines = new string[] { this.Line0, this.Line1, this.Line2, this.Line3 };
+
+            foreach (var line in lines)
+            {
+                var amt = LineParser.GetAmountFromLine(line);
+
+                if (amt.HasValue)
+                {
+                    result = amt.GetValueOrDefault();
+
+                    break;
+                }
+            }
+
+            //this.Amount = result.GetValueOrDefault();
+
+            return result;
         }
 
         public override string ToString()

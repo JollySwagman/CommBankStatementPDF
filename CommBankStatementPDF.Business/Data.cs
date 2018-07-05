@@ -31,7 +31,7 @@ namespace CommBankStatementPDF.Business
                         {
                             Source = item.Biller,
                             AccountType = item.AccountType.ToString(),
-                            Amount = item.Amount,
+                            Amount = item.Amount.GetValueOrDefault(),
                             Biller = item.Biller,
                             Date = item.Date,
                             Filename = item.SourceFile

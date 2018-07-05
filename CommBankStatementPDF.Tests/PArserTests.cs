@@ -11,8 +11,8 @@ namespace CommBankStatementPDF.Tests
     {
         private const decimal MAX_AMOUNT = 3000;
 
-        private string testFilename2 = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\Streamline\Statement20180430.pdf");
-        private string testFilenameOldFormat = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\Streamline\Statement20100831.pdf");
+        private readonly string testFilename2 = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\Streamline\Statement20180430.pdf");
+        private readonly string testFilenameOldFormat = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\Streamline\Statement20100831.pdf");
 
         [Test]
         public void ReadPdfFileToPages_()
@@ -37,6 +37,22 @@ namespace CommBankStatementPDF.Tests
             Trace.WriteLine(result);
 
             Assert.That(result, Is.EqualTo("Transfer to xx1119 CommBank app 50.00 ( $9,279.46 DR"));
+        }
+
+        [Test]
+        public void StripBalance_Handles_Null()
+        {
+            var x = LineParser.StripBalance(null);
+
+            Assert.That(x, Is.Null);
+        }
+
+        [Test]
+        public void GetAmountFromLine_Handles_Null()
+        {
+            var x = LineParser.GetAmountFromLine(null);
+
+            Assert.That(x, Is.Null);
         }
 
         [Test]
