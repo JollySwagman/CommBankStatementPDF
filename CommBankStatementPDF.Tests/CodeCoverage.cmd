@@ -13,7 +13,9 @@ REM "..\..\..\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe" -target:".
 rem -filter:"+[ProjToTest]ProjToTest*" -excludebyattribute:"System.CodeDom.Compiler.GeneratedCodeAttribute" -register:user -output:"_CodeCoverageResult.xml"
 rem --where:"cat != blah"
 
-".\ReportGenerator_3.1.2.0\ReportGenerator.exe" "-reports:_CodeCoverageResult.xml" "-targetdir:Report"
+REM ".\ReportGenerator_3.1.2.0\ReportGenerator.exe" "-reports:_CodeCoverageResult.xml" "-targetdir:Report"
+
+"..\..\..\packages\ReportGenerator.3.1.2\tools\ReportGenerator.exe" "-reports:_CodeCoverageResult.xml" "-targetdir:Report"
 
 Report\index.htm
 
