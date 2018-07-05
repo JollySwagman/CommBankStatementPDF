@@ -8,6 +8,14 @@ namespace CommBankStatementPDF.Business
     {
         public bool Verbose { get; set; }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lines"></param>
+        /// <param name="year"></param>
+        /// <param name="accountType"></param>
+        /// <param name="filename"></param>
+        /// <returns></returns>
         public List<Prototype> GetPrototypesFromLines(List<string> lines, int year, AccountType accountType, string filename)
         {
             var result = new List<Prototype>();
