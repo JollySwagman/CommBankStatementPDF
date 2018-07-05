@@ -18,5 +18,14 @@ namespace CommBankStatementPDF.Tests
         public string testFilename1 = Path.Combine(testFilesFolder, @"TestFiles\All\StreamLine\Statement20160131.pdf");
 
         public string testFilename3 = Path.Combine(testFilesFolder, @"TestFiles\All\StreamLine\Statement20161207.pdf");
+
+
+        public string GetZipPassword()
+        {
+            return Environment.GetEnvironmentVariable("DevPassword");
+        }
+
+
+
     }
 }
