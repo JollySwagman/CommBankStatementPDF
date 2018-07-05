@@ -7,12 +7,12 @@ using System.IO;
 namespace CommBankStatementPDF.Tests
 {
     [TestFixture]
-    public class ParserTests
+    public class ParserTests : TestBase
     {
         private const decimal MAX_AMOUNT = 3000;
 
-        private readonly string testFilename2 = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\Streamline\Statement20180430.pdf");
-        private readonly string testFilenameOldFormat = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\Streamline\Statement20100831.pdf");
+        //private readonly string testFilename2 = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\Streamline\Statement20180430.pdf");
+        //private readonly string testFilenameOldFormat = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\Streamline\Statement20100831.pdf");
 
         [Test]
         public void ReadPdfFileToPages_()

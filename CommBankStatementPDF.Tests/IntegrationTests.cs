@@ -14,7 +14,6 @@ namespace CommBankStatementPDF.Tests
         [Test]
         public void Full_Integration_New_Parser()
         {
-            var testFilesFolder = @"C:\Users\Boss\Documents\BankStatements";
 
             var sb = new StringBuilder();
 

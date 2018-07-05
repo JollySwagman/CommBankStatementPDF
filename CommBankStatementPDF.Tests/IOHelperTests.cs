@@ -8,16 +8,16 @@ using System.IO;
 namespace CommBankStatementPDF.Tests
 {
     [TestFixture]
-    public class IOHelperTests
+    public class IOHelperTests : TestBase
     {
         private const decimal MAX_AMOUNT = 3000;
 
-        private string testFilename0 = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\VISA\Statement20151218.pdf");
+        //private string testFilename0 = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\VISA\Statement20151218.pdf");
 
-        //private string testFilenameOldFormat = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\Streamline\Statement20100831.pdf");
-        private string testFilename1 = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\All\StreamLine\Statement20160131.pdf");
+        ////private string testFilenameOldFormat = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\Streamline\Statement20100831.pdf");
+        //private string testFilename1 = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\All\StreamLine\Statement20160131.pdf");
 
-        private string testFilename2 = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\All\StreamLine\Statement20161207.pdf");
+        //private string testFilename2 = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\All\StreamLine\Statement20161207.pdf");
 
         //[Test]
         //public void Aspose()
@@ -34,7 +34,7 @@ namespace CommBankStatementPDF.Tests
             //var pages = IOHelper.ReadPdfFileToPages(testFilename2);
 
             //var prototypes = IOHelper.GetLinesFromPages(pages);
-            var prototypes = IOHelper.GetPrototypes(testFilename2);
+            var prototypes = IOHelper.GetPrototypes(testFilename3);
 
             foreach (var item in prototypes)
             {
