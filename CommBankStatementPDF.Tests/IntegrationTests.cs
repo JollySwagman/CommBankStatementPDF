@@ -8,12 +8,14 @@ using System.Text;
 
 namespace CommBankStatementPDF.Tests
 {
-    [TestFixture, Category("IntegrationTests")]
-    public class IntegrationTests
+    //  [TestFixture, Category("IntegrationTests")]
+    public class IntegrationTests : TestBase
     {
         [Test]
         public void Full_Integration_New_Parser()
         {
+            var testFilesFolder = @"C:\Users\Boss\Documents\BankStatements";
+
             var sb = new StringBuilder();
 
             var trans = new List<Prototype>();
@@ -22,7 +24,8 @@ namespace CommBankStatementPDF.Tests
 
             foreach (var account in new AccountType[] { AccountType.StreamLine, AccountType.VISA })
             {
-                foreach (var item in Directory.GetFiles(Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\All\" + account.ToString()), "*.pdf"))
+                // foreach (var item in Directory.GetFiles(Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestFiles\All\" + account.ToString()), "*.pdf"))
+                foreach (var item in Directory.GetFiles(Path.Combine(testFilesFolder, @"TestFiles\All\" + account.ToString()), "*.pdf"))
                 {
                     var prototypes = IOHelper.GetPrototypes(item);
 
@@ -42,10 +45,10 @@ namespace CommBankStatementPDF.Tests
 
             Trace.WriteLine("FOUND: " + trans.Count);
 
-            Trace.WriteLine("Writing to DB");
-            Business.Data.DeleteAll();
-            Business.Data.Save(trans);
-            Trace.WriteLine("Finished writing to DB");
+            //Trace.WriteLine("Writing to DB");
+            //Business.Data.DeleteAll();
+            //Business.Data.Save(trans);
+            //Trace.WriteLine("Finished writing to DB");
 
             //File.WriteAllText(Path.Combine(TestContext.CurrentContext.TestDirectory, "log.txt"), sb.ToString());
         }
