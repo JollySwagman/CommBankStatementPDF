@@ -2,6 +2,7 @@
 using iTextSharp.text.pdf.parser;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 
@@ -9,6 +10,8 @@ namespace CommBankStatementPDF.Business
 {
     public class IOHelper
     {
+        public bool Verbose { get; set; }
+
         public static int GetYear(string filename)
         {
             var fi = new FileInfo(filename);
@@ -52,7 +55,7 @@ namespace CommBankStatementPDF.Business
             var pages = ReadPdfFileToPages(filename);
             var lines = GetLinesFromPages(pages);
 
-            var parser = new NewParser();
+            var parser = new NewParser() { Verbose = this.Verbose };
 
             var year = GetYear(filename);
 
@@ -67,7 +70,7 @@ namespace CommBankStatementPDF.Business
             return result;
         }
 
-        public static List<string> ReadPdfFileToPages(string fileName)
+        public List<string> ReadPdfFileToPages(string fileName)
         {
             var result = new List<string>();
 
@@ -83,6 +86,7 @@ namespace CommBankStatementPDF.Business
                 foreach (var item in currentText.Split('\n'))
                 {
                     result.Add(item);
+                    Trace.WriteLineIf(this.Verbose, item);
                 }
             }
             pdfReader.Close();

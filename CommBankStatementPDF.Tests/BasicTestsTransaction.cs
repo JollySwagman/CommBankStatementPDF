@@ -7,7 +7,7 @@ using System.Diagnostics;
 namespace CommBankStatementPDF.Tests
 {
     [TestFixture]
-    public class BasicTestsTransaction
+    public class BasicTestsTransaction : TestBase
     {
         [Test]
         public void TrimEndAlpha_()
@@ -43,6 +43,33 @@ namespace CommBankStatementPDF.Tests
             Assert.That(x.Value, Is.EqualTo(500));
 
             Assert.That(LineParser.GetAmountFromLine(@"to June 30, 2011 is 0.16 0").GetValueOrDefault(), Is.EqualTo(.16));
+        }
+
+        [Test]
+        public void ParseToTransaction_Old_Format()
+        {
+            var IOHelper = new IOHelper() { Verbose = true };
+
+            var prototypes = IOHelper.GetPrototypes(testFilenameOldFormat);
+
+            //var parser = new StatementParser(testFilenameOldFormat, AccountType.StreamLine);
+            //Trace.WriteLine(parser.Source);
+
+            //parser.ReadFile();
+
+            Trace.WriteLine("");
+
+            Assert.That(prototypes, Is.Not.Null);
+            
+            foreach (var item in prototypes)
+            {
+                Assert.That(item.Date.Year > 1900);
+                Assert.That(item.AccountType, Is.EqualTo(AccountType.StreamLine));
+                Trace.WriteLine(item);
+            }
+
+            Assert.That(prototypes.Count, Is.EqualTo(74));
+
         }
 
         //[Test]
