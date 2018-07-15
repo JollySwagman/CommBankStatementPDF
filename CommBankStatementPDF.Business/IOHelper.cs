@@ -94,6 +94,37 @@ namespace CommBankStatementPDF.Business
             return result;
         }
 
+        public static List<string> GetLinesFromPagesNEW(List<string> pages)
+        {
+            var result = new List<string>();
+            
+            var foundBeginning = false;
+
+            foreach (var line in pages)
+            {
+                if (line.Contains(HelperVISA.BEGIN_TRANSACTIONS) || line.Contains(HelperStreamline.BEGIN_TRANSACTIONS))
+                {
+                    foundBeginning = true;
+                }
+
+                if (line.Contains(HelperVISA.END_TRANSACTIONS))
+                {
+                    break;
+                }
+
+                if ((foundBeginning) && LineParser.IsCrap(line) == false)
+                {
+                    if (StreamLine.IsBracketLine(line))
+                    {
+                    }
+                    result.Add(line);
+                }
+            }
+
+
+            return result;
+        }
+
         public static List<string> GetLinesFromPages(List<string> pages)
         {
             return GetLinesFromPages(pages, false);
@@ -102,7 +133,7 @@ namespace CommBankStatementPDF.Business
         public static List<string> GetLinesFromPages(List<string> pages, bool processAll)
         {
             var result = new List<string>();
-            var sb = new StringBuilder();
+            //var sb = new StringBuilder();
 
             var foundBeginning = processAll;
 
@@ -123,12 +154,12 @@ namespace CommBankStatementPDF.Business
                     if (StreamLine.IsBracketLine(line))
                     {
                     }
-                    sb.AppendLine(line);
+                    //sb.AppendLine(line);
                     result.Add(line);
                 }
             }
 
-            sb.AppendLine("---------------------------------------");
+            //sb.AppendLine("---------------------------------------");
 
             return result;
         }

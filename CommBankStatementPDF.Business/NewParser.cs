@@ -31,7 +31,7 @@ namespace CommBankStatementPDF.Business
                 var date = LineParser.GetDateFromLine(item, year);
                 if (date.HasValue)
                 {
-                    // save the previous and start a new one
+                    // Is beginning of a new transaction -- save the previous and start a new one
                     if (newProto != null && string.IsNullOrWhiteSpace(newProto.Line0) == false)
                     {
                         result.Add(newProto);
